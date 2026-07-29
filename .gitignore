@@ -1,0 +1,4 @@
+# Never commit admin tool to git
+admin.html
+.DS_Store
+*.log

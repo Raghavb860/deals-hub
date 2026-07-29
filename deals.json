@@ -1,0 +1,15 @@
+[
+  {
+    "id": "sample-1",
+    "title": "Sample deal — replace me with a real one",
+    "category": "Electronics",
+    "emoji": "📱",
+    "image": "",
+    "was": "₹1999",
+    "now": "₹799",
+    "link": "https://example.com/your-affiliate-link",
+    "pinned": true,
+    "createdAt": 1753800000000,
+    "expiresAt": ""
+  }
+]

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deals Hub — Daily Hand-Picked Deals & Discounts</title>
+<meta name="description" content="Hand-picked deals, loot offers, and price drops updated daily. Direct affiliate links with verified discounts.">
+
+<!-- ===================================================================
+     OPEN GRAPH / SOCIAL PREVIEW META TAGS
+     Update the URLs below after deploying your site so links preview nicely
+     when shared on Instagram DMs, WhatsApp, Telegram, or Facebook.
+     =================================================================== -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Deals Hub — Daily Deals & Loot Offers">
+<meta property="og:description" content="Hand-picked deals and discounts, posted daily. Save big on Electronics, Fashion & more!">
+<meta property="og:image" content="https://your-domain-here.com/og-image.jpg">
+<meta property="og:url" content="https://your-domain-here.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Deals Hub — Daily Deals & Loot Offers">
+<meta name="twitter:description" content="Hand-picked deals and discounts, posted daily.">
+<meta name="twitter:image" content="https://your-domain-here.com/og-image.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17181C;
+    --ink-soft:#1E2026;
+    --ink-line:#33353D;
+    --paper:#F5EFDD;
+    --paper-shadow:#DACD9F;
+    --stamp:#E4483A;
+    --stamp-dark:#B93529;
+    --mustard:#F0A93B;
+    --forest:#2E8B67;
+    --telegram:#229ED9;
+    --whatsapp:#25D366;
+    --text-dark:#221C12;
+    --text-light:#F5EFDD;
+    --text-muted:#9EA0AA;
+    --radius:4px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink); color:var(--text-light); font-family:'Inter',sans-serif; min-height:100vh;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(228,72,58,0.10), transparent 40%),
+      radial-gradient(circle at 90% 30%, rgba(240,169,59,0.08), transparent 35%);
+  }
+  a{color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+  :focus-visible{outline:3px solid var(--mustard); outline-offset:2px;}
+  ::selection{background:var(--stamp); color:var(--text-light);}
+  img{max-width:100%; display:block;}
+
+  /* --- Social Alert Banner --- */
+  .social-banner {
+    background: linear-gradient(90deg, #1b2838 0%, #17202a 100%);
+    border-bottom: 1px solid var(--ink-line);
+    padding: 10px 16px;
+    font-size: 13px;
+    text-align: center;
+  }
+  .social-banner-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .social-banner span {
+    font-weight: 500;
+    color: var(--paper);
+  }
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+  .social-btn:hover { transform: translateY(-1px); opacity: 0.9; }
+  .social-btn.telegram { background: var(--telegram); color: #fff; }
+  .social-btn.whatsapp { background: var(--whatsapp); color: #fff; }
+
+  /* --- Header --- */
+  header{position:sticky; top:0; z-index:40; background:rgba(23,24,28,0.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--ink-line);}
+  .header-inner{max-width:1160px; margin:0 auto; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px;}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .brand-mark{width:36px; height:36px; background:var(--stamp); border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px dashed var(--paper); flex-shrink:0;}
+  .brand-mark span{font-family:'Bebas Neue'; font-size:15px; color:var(--paper); letter-spacing:0.02em;}
+  .brand-name{font-family:'Bebas Neue'; font-size:25px; letter-spacing:0.06em; color:var(--paper);}
+  .brand-name em{font-style:normal; color:var(--stamp);}
+  .btn{border:none; border-radius:var(--radius); padding:9px 16px; font-weight:600; font-size:13px; display:inline-flex; align-items:center; gap:8px; transition:transform .15s ease, box-shadow .15s ease;}
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--stamp); color:#fff;}
+  .btn-primary:hover{box-shadow:0 4px 14px rgba(228,72,58,0.4);}
+  .btn-ghost{background:transparent; color:var(--paper); border:1px solid var(--ink-line);}
+  .btn-ghost:hover{border-color:var(--paper);}
+
+  /* --- Hero --- */
+  .hero{max-width:1160px; margin:0 auto; padding:44px 24px 32px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mustard); border:1px solid rgba(240,169,59,0.4); padding:5px 12px; border-radius:100px; margin-bottom:18px;}
+  .eyebrow::before{content:"●"; color:var(--forest); font-size:9px;}
+  .hero h1{font-family:'Bebas Neue'; font-size:clamp(42px,7vw,80px); line-height:0.95; margin:0 0 16px; color:var(--paper); letter-spacing:0.01em; max-width:16ch;}
+  .hero h1 .stamp-word{color:var(--stamp);}
+  .hero p{font-size:16px; line-height:1.6; color:var(--text-muted); max-width:54ch; margin:0 0 24px;}
+  .stats-row{display:flex; gap:0; flex-wrap:wrap; border-top:1px solid var(--ink-line); margin-top:16px;}
+  .stat{padding:16px 24px 0 0; border-right:1px dashed var(--ink-line); margin-right:24px;}
+  .stat:last-child{border-right:none;}
+  .stat-num{font-family:'Bebas Neue'; font-size:32px; color:var(--paper); display:block;}
+  .stat-label{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted);}
+
+  /* --- Top Deal (Pinned) --- */
+  .top-deal-wrap{max-width:1160px; margin:0 auto; padding:0 24px 36px;}
+  .top-deal-label{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--mustard); margin-bottom:12px; display:flex; align-items:center; gap:8px;}
+  .top-deal-label::before{content:"★";}
+  .top-deal{
+    display:flex; background:var(--paper); border-radius:6px; overflow:hidden;
+    box-shadow:0 14px 0 -6px var(--paper-shadow), 0 20px 34px rgba(0,0,0,0.4);
+  }
+  .top-deal-media{width:36%; min-width:220px; background:#e9e0c4; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;}
+  .top-deal-media img{width:100%; height:100%; object-fit:cover;}
+  .top-deal-media .emoji-fallback{font-size:72px;}
+  .top-deal-body{flex:1; padding:24px 28px; color:var(--text-dark); display:flex; flex-direction:column;}
+  .top-deal-cat{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; opacity:0.65; margin-bottom:6px;}
+  .top-deal-title{font-size:22px; font-weight:700; margin:0 0 10px; line-height:1.25;}
+  .top-deal-price{display:flex; align-items:baseline; gap:10px; margin-bottom:16px;}
+  .top-deal-price .now{font-family:'IBM Plex Mono'; font-weight:700; font-size:26px; color:var(--forest);}
+  .top-deal-price .was{font-family:'IBM Plex Mono'; font-size:15px; color:#8a8272; text-decoration:line-through;}
+  .top-deal-actions{display:flex; gap:10px; margin-top:auto; align-self:flex-start; flex-wrap:wrap;}
+
+  /* --- Filter Bar & Chips --- */
+  .filter-bar{max-width:1160px; margin:0 auto; padding:0 24px 24px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  .search-wrap{display:flex; align-items:center; gap:8px; background:var(--ink-soft); border:1px solid var(--ink-line); border-radius:100px; padding:8px 16px; flex:1; min-width:200px; max-width:320px;}
+  .search-wrap input{background:transparent; border:none; outline:none; color:var(--paper); font-size:14px; width:100%;}
+  .search-wrap input::placeholder{color:var(--text-muted);}
+  .chip-scroll{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .chip{background:var(--ink-soft); border:1px solid var(--ink-line); color:var(--text-muted); padding:7px 14px; border-radius:100px; font-size:13px; font-weight:500; white-space:nowrap; transition:all .15s ease;}
+  .chip.active{background:var(--stamp); border-color:var(--stamp); color:#fff;}
+  .chip:hover:not(.active){border-color:var(--paper); color:var(--paper);}
+  .chip-tag{background:rgba(240,169,59,0.12); border-color:rgba(240,169,59,0.4); color:var(--mustard);}
+
+  /* --- Grid & Deal Tickets --- */
+  main{max-width:1160px; margin:0 auto; padding:0 24px 80px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(310px,1fr)); gap:24px;}
+
+  .ticket{display:flex; background:var(--paper); border-radius:var(--radius); box-shadow:0 10px 0 -4px var(--paper-shadow), 0 14px 24px rgba(0,0,0,0.35); position:relative; overflow:visible; animation:rise .35s ease both;}
+  @keyframes rise{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .ticket-stub{width:34%; min-width:100px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0; border-right:2px dashed var(--paper-shadow); overflow:hidden;}
+  .ticket-stub img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
+  .ticket-stub .emoji{font-size:36px; line-height:1; margin-bottom:8px; z-index:1;}
+  .ticket-stub .cat{font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dark); opacity:0.7; text-align:center; z-index:1;}
+  .ticket-stub.has-image .cat{position:absolute; bottom:4px; left:0; right:0; background:rgba(245,239,221,0.92); padding:3px 4px;}
+  .notch{position:absolute; width:20px; height:20px; background:var(--ink); border-radius:50%; right:-11px; z-index:2;}
+  .notch.top{top:-11px;}
+  .notch.bottom{bottom:-11px;}
+
+  .ticket-body{flex:1; padding:16px 18px; display:flex; flex-direction:column; color:var(--text-dark);}
+  .ticket-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+  .ticket-title{font-weight:700; font-size:15px; line-height:1.3; margin:0 0 4px;}
+  .stamp-badge{flex-shrink:0; font-family:'Bebas Neue'; font-size:14px; color:var(--stamp); border:2px solid var(--stamp); border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center; text-align:center; line-height:1.1; transform:rotate(-8deg); opacity:0.9; white-space:pre-line;}
+  .price-row{display:flex; align-items:baseline; gap:8px; margin:8px 0 4px;}
+  .price-now{font-family:'IBM Plex Mono'; font-weight:700; font-size:19px; color:var(--forest);}
+  .price-was{font-family:'IBM Plex Mono'; font-size:13px; color:#8a8272; text-decoration:line-through;}
+  .ticket-meta{font-size:11.5px; color:#8a8272; margin-bottom:12px;}
+  .ticket-actions{display:flex; gap:6px; margin-top:auto;}
+  .grab-btn{flex:1; background:var(--stamp-dark); color:#fff; text-align:center; text-decoration:none; font-weight:700; font-size:13px; padding:10px 12px; border-radius:var(--radius); letter-spacing:0.02em; transition:background .15s ease;}
+  .grab-btn:hover{background:var(--stamp);}
+  .share-btn{background:transparent; border:1px solid #c4b998; color:var(--text-dark); padding:10px; border-radius:var(--radius); display:flex; align-items:center; justify-content:center; transition:background .15s ease;}
+  .share-btn:hover{background:#e8debd;}
+  .affiliate-note{font-family:'IBM Plex Mono'; font-size:9px; color:#a39a80; margin-top:6px; letter-spacing:0.02em;}
+
+  .empty{grid-column:1/-1; text-align:center; padding:70px 20px; border:1px dashed var(--ink-line); border-radius:8px;}
+  .empty .glyph{font-size:40px; margin-bottom:12px;}
+  .empty h3{font-family:'Bebas Neue'; font-size:28px; color:var(--paper); margin:0 0 8px; letter-spacing:0.03em;}
+  .empty p{color:var(--text-muted); max-width:40ch; margin:0 auto;}
+
+  /* --- Toast Notification --- */
+  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(100px); background:var(--paper); color:var(--text-dark); font-weight:600; font-size:13px; padding:12px 20px; border-radius:100px; box-shadow:0 10px 25px rgba(0,0,0,0.5); z-index:100; opacity:0; transition:transform 0.25s ease, opacity 0.25s ease; pointer-events:none;}
+  .toast.show{transform:translateX(-50%) translateY(0); opacity:1;}
+
+  /* --- Footer & Disclosure Modal --- */
+  footer{border-top:1px solid var(--ink-line); padding:28px 24px 40px; text-align:center;}
+  footer p{font-size:12px; color:var(--text-muted); margin:6px 0; font-family:'IBM Plex Mono';}
+  footer a{color:var(--mustard); text-decoration:underline;}
+  .loading-row{grid-column:1/-1; text-align:center; padding:60px 0; color:var(--text-muted); font-family:'IBM Plex Mono'; font-size:13px;}
+
+  @media (max-width:700px){
+    .top-deal{flex-direction:column;}
+    .top-deal-media{width:100%; height:190px;}
+  }
+  @media (max-width:560px){
+    .ticket{flex-direction:column;}
+    .ticket-stub{width:100%; height:140px; flex-direction:row; border-right:none; border-bottom:2px dashed var(--paper-shadow);}
+    .notch{top:auto; left:50%; transform:translateX(-50%); right:auto;}
+    .notch.top{top:-11px;}
+    .notch.bottom{bottom:-11px;}
+    .hero h1{font-size:46px;}
+  }
+  @media (prefers-reduced-motion:reduce){ *{animation:none !important; transition:none !important;} }
+</style>
+</head>
+<body>
+
+<!-- Optional Social Alerts Bar (Replace URLs with your channel links, or leave blank to hide) -->
+<div class="social-banner" id="socialBanner">
+  <div class="social-banner-inner">
+    <span>🔥 Never miss a 90% OFF loot deal! Join our daily alert channels:</span>
+    <a href="https://t.me/your_telegram_channel" target="_blank" rel="noopener" class="social-btn telegram" id="tgBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+      Telegram Group
+    </a>
+    <a href="https://chat.whatsapp.com/your_whatsapp_group" target="_blank" rel="noopener" class="social-btn whatsapp" id="waBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.8 14.16c-.24.68-1.2 1.25-1.94 1.41-.51.11-1.17.2-3.41-.73-2.86-1.18-4.7-4.08-4.84-4.27-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.28.57-.35.76-.35.19 0 .38.01.54.01.17 0 .41-.07.64.49.24.57.81 1.98.88 2.12.07.14.12.31.02.5-.1.19-.15.31-.3.49-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.07 1.31 2.36 1.46.29.15.46.13.63-.07.17-.2.73-.85.92-1.14.19-.29.38-.24.64-.15.26.09 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.7-.17 1.38z"/></svg>
+      WhatsApp Group
+    </a>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="brand">
+      <span class="brand-mark"><span>DH</span></span>
+      <span class="brand-name">DEALS<em>HUB</em></span>
+    </a>
+    <button class="btn btn-ghost" id="refreshBtn" type="button">🔄 Refresh</button>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="eyebrow">Hand-Picked · Updated Daily</span>
+  <h1>Fresh deals,<br><span class="stamp-word">stamped</span> daily.</h1>
+  <p>Verified discounts & loot offers posted the moment prices drop. Click any deal to grab the offer directly!</p>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-num" id="statTotal">0</span><span class="stat-label">Deals live</span></div>
+    <div class="stat"><span class="stat-num" id="statCats">0</span><span class="stat-label">Categories</span></div>
+    <div class="stat"><span class="stat-num" id="statLast">—</span><span class="stat-label">Last posted</span></div>
+  </div>
+</section>
+
+<div class="top-deal-wrap" id="topDealWrap" style="display:none;">
+  <div class="top-deal-label">Top deal right now</div>
+  <div id="topDealSlot"></div>
+</div>
+
+<div class="filter-bar" id="deals">
+  <div class="search-wrap">
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="Search deals...">
+  </div>
+  <div class="chip-scroll" id="chipRow">
+    <button class="chip active" data-cat="All" type="button">All</button>
+  </div>
+</div>
+
+<main>
+  <div class="grid" id="dealsGrid">
+    <div class="loading-row">Loading fresh deals…</div>
+  </div>
+</main>
+
+<div class="toast" id="toast">Link copied to clipboard!</div>
+
+<footer>
+  <p>Deals Hub contains affiliate links — we may earn a small commission if you purchase through our links at no extra cost to you.</p>
+  <p>© <span id="year"></span> Deals Hub. Product prices and availability are accurate as of the timestamp indicated and are subject to change.</p>
+</footer>
+
+<script>
+let deals = [];
+let activeCategory = 'All';
+let specialFilter = 'All';
+let searchTerm = '';
+
+const grid = document.getElementById('dealsGrid');
+const chipRow = document.getElementById('chipRow');
+const toastEl = document.getElementById('toast');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 2600);
+}
+
+function timeAgo(ts){
+  if (!ts) return 'recently';
+  const diff = Math.floor((Date.now() - ts) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  return Math.floor(diff/86400) + 'd ago';
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str == null ? '' : String(str);
+  return d.innerHTML;
+}
+
+function isExpired(d){
+  if (!d.expiresAt) return false;
+  const t = typeof d.expiresAt === 'number' ? d.expiresAt : Date.parse(d.expiresAt);
+  return !isNaN(t) && Date.now() > t;
+}
+
+function discountPct(d){
+  const was = parseFloat(String(d.was || '').replace(/[^0-9.]/g,''));
+  const now = parseFloat(String(d.now || '').replace(/[^0-9.]/g,''));
+  if (was > 0 && now >= 0 && was > now) return Math.round((1 - now / was) * 100);
+  return null;
+}
+
+function getNumericPrice(d){
+  const now = parseFloat(String(d.now || '').replace(/[^0-9.]/g,''));
+  return isNaN(now) ? Infinity : now;
+}
+
+async function shareOrCopy(title, url) {
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: title, url: url });
+      return;
+    } catch (e) { /* fallback to copy */ }
+  }
+  try {
+    await navigator.clipboard.writeText(url);
+    showToast('📋 Deal link copied to clipboard!');
+  } catch (e) {
+    showToast('Failed to copy link.');
+  }
+}
+
+async function loadDeals(){
+  grid.innerHTML = '<div class="loading-row">Loading fresh deals…</div>';
+  try{
+    const res = await fetch('deals.json', { cache: 'no-store' });
+    const raw = await res.json();
+    deals = (Array.isArray(raw) ? raw : []).filter(d => !isExpired(d));
+  }catch(e){
+    deals = [];
+  }
+  render();
+}
+
+function buildChips(){
+  const baseCats = ['All', ...new Set(deals.map(d => d.category))];
+  let html = baseCats.map(c =>
+    `<button class="chip ${c===activeCategory && specialFilter==='All'?'active':''}" data-cat="${escapeHtml(c)}" data-filter="All" type="button">${escapeHtml(c)}</button>`
+  ).join('');
+
+  // Add quick smart filters if applicable
+  html += `<button class="chip chip-tag ${specialFilter==='under500'?'active':''}" data-cat="All" data-filter="under500" type="button">🔥 Under ₹500</button>`;
+  html += `<button class="chip chip-tag ${specialFilter==='50off'?'active':''}" data-cat="All" data-filter="50off" type="button">⚡ 50%+ OFF</button>`;
+
+  chipRow.innerHTML = html;
+  chipRow.querySelectorAll('.chip').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ 
+      activeCategory = btn.dataset.cat; 
+      specialFilter = btn.dataset.filter;
+      render(); 
+    });
+  });
+}
+
+function renderTopDeal(){
+  const wrap = document.getElementById('topDealWrap');
+  const slot = document.getElementById('topDealSlot');
+  const pinned = deals.filter(d => d.pinned).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0))[0];
+  if (!pinned){ wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  const disc = discountPct(pinned);
+  slot.innerHTML = `
+    <div class="top-deal">
+      <div class="top-deal-media">
+        ${pinned.image ? `<img src="${escapeHtml(pinned.image)}" alt="${escapeHtml(pinned.title)}">` : `<span class="emoji-fallback">${pinned.emoji || '🏷️'}</span>`}
+      </div>
+      <div class="top-deal-body">
+        <div class="top-deal-cat">${escapeHtml(pinned.category)}</div>
+        <h2 class="top-deal-title">${escapeHtml(pinned.title)}</h2>
+        <div class="top-deal-price">
+          <span class="now">${escapeHtml(pinned.now)}</span>
+          ${pinned.was ? `<span class="was">${escapeHtml(pinned.was)}</span>` : ''}
+          ${disc !== null ? `<span style="color:var(--stamp);font-weight:700;font-size:14px;">${disc}% OFF</span>` : ''}
+        </div>
+        <div class="top-deal-actions">
+          <a class="btn btn-primary top-deal-cta" href="${escapeHtml(pinned.link)}" target="_blank" rel="noopener noreferrer sponsored">Grab this deal →</a>
+          <button class="btn btn-ghost" onclick="shareOrCopy('${escapeHtml(pinned.title)}', '${escapeHtml(pinned.link)}')" type="button">🔗 Share</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function render(){
+  buildChips();
+  renderTopDeal();
+
+  document.getElementById('statTotal').textContent = deals.length;
+  document.getElementById('statCats').textContent = new Set(deals.map(d=>d.category)).size;
+  document.getElementById('statLast').textContent = deals.length ? timeAgo(Math.max(...deals.map(d=>d.createdAt||0))) : '—';
+
+  let filtered = deals.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  
+  if (activeCategory !== 'All') filtered = filtered.filter(d => d.category === activeCategory);
+  
+  if (specialFilter === 'under500') {
+    filtered = filtered.filter(d => getNumericPrice(d) <= 500);
+  } else if (specialFilter === '50off') {
+    filtered = filtered.filter(d => {
+      const disc = discountPct(d);
+      return disc !== null && disc >= 50;
+    });
+  }
+
+  if (searchTerm) filtered = filtered.filter(d => (d.title||'').toLowerCase().includes(searchTerm.toLowerCase()));
+
+  if (!filtered.length){
+    grid.innerHTML = `
+      <div class="empty">
+        <div class="glyph">🏷️</div>
+        <h3>${deals.length ? 'No deals match your filter' : 'No deals posted yet'}</h3>
+        <p>${deals.length ? 'Try selecting "All" or a different category.' : 'Check back soon — new deals are added regularly.'}</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(d => {
+    const disc = discountPct(d);
+    const hasImg = !!d.image;
+    return `
+    <article class="ticket">
+      <div class="notch top"></div>
+      <div class="notch bottom"></div>
+      <div class="ticket-stub ${hasImg ? 'has-image' : ''}">
+        ${hasImg ? `<img src="${escapeHtml(d.image)}" alt="${escapeHtml(d.title)}" loading="lazy">` : `<div class="emoji">${d.emoji || '🏷️'}</div>`}
+        <div class="cat">${escapeHtml(d.category)}</div>
+      </div>
+      <div class="ticket-body">
+        <div class="ticket-top">
+          <h3 class="ticket-title">${escapeHtml(d.title)}</h3>
+          <div class="stamp-badge">${disc !== null ? disc + '%\nOFF' : 'DEAL'}</div>
+        </div>
+        <div class="price-row">
+          <span class="price-now">${escapeHtml(d.now)}</span>
+          ${d.was ? `<span class="price-was">${escapeHtml(d.was)}</span>` : ''}
+        </div>
+        <div class="ticket-meta">Posted ${timeAgo(d.createdAt)}</div>
+        <div class="ticket-actions">
+          <a class="grab-btn" href="${escapeHtml(d.link)}" target="_blank" rel="noopener noreferrer sponsored">Grab deal →</a>
+          <button class="share-btn" onclick="shareOrCopy('${escapeHtml(d.title)}', '${escapeHtml(d.link)}')" title="Share or Copy Link" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </button>
+        </div>
+        <div class="affiliate-note">Affiliate link</div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+document.getElementById('searchInput').addEventListener('input', (e)=>{
+  searchTerm = e.target.value;
+  render();
+});
+document.getElementById('refreshBtn').addEventListener('click', async ()=>{
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '⏳ Refreshing…';
+  await loadDeals();
+  btn.textContent = '🔄 Refresh'; btn.disabled = false;
+});
+
+loadDeals();
+</script>
+</body>
+</html>
