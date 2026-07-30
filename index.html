@@ -8,18 +8,16 @@
 
 <!-- ===================================================================
      OPEN GRAPH / SOCIAL PREVIEW META TAGS
-     Update the URLs below after deploying your site so links preview nicely
-     when shared on Instagram DMs, WhatsApp, Telegram, or Facebook.
      =================================================================== -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Deals Hub — Daily Deals & Loot Offers">
 <meta property="og:description" content="Hand-picked deals and discounts, posted daily. Save big on Electronics, Fashion & more!">
-<meta property="og:image" content="https://your-domain-here.com/og-image.jpg">
-<meta property="og:url" content="https://your-domain-here.com/">
+<meta property="og:image" content="https://raghavb860.github.io/deals-hub/og-image.jpg">
+<meta property="og:url" content="https://raghavb860.github.io/deals-hub/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Deals Hub — Daily Deals & Loot Offers">
 <meta name="twitter:description" content="Hand-picked deals and discounts, posted daily.">
-<meta name="twitter:image" content="https://your-domain-here.com/og-image.jpg">
+<meta name="twitter:image" content="https://raghavb860.github.io/deals-hub/og-image.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -155,10 +153,10 @@
 
   .ticket{display:flex; background:var(--paper); border-radius:var(--radius); box-shadow:0 10px 0 -4px var(--paper-shadow), 0 14px 24px rgba(0,0,0,0.35); position:relative; overflow:visible; animation:rise .35s ease both;}
   @keyframes rise{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
-  .ticket-stub{width:34%; min-width:100px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0; border-right:2px dashed var(--paper-shadow); overflow:hidden;}
+  .ticket-stub{width:34%; min-width:100px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0; border-right:2px dashed var(--paper-shadow); overflow:hidden; background:#e9e0c4;}
   .ticket-stub img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
   .ticket-stub .emoji{font-size:36px; line-height:1; margin-bottom:8px; z-index:1;}
-  .ticket-stub .cat{font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dark); opacity:0.7; text-align:center; z-index:1;}
+  .ticket-stub .cat{font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dark); opacity:0.75; text-align:center; z-index:1;}
   .ticket-stub.has-image .cat{position:absolute; bottom:4px; left:0; right:0; background:rgba(245,239,221,0.92); padding:3px 4px;}
   .notch{position:absolute; width:20px; height:20px; background:var(--ink); border-radius:50%; right:-11px; z-index:2;}
   .notch.top{top:-11px;}
@@ -211,7 +209,6 @@
 </head>
 <body>
 
-<!-- Optional Social Alerts Bar (Replace URLs with your channel links, or leave blank to hide) -->
 <div class="social-banner" id="socialBanner">
   <div class="social-banner-inner">
     <span>🔥 Never miss a 90% OFF loot deal! Join our daily alert channels:</span>
@@ -237,7 +234,7 @@
 </header>
 
 <section class="hero">
-  <span class="eyebrow">Hand-Picked · Updated Daily</span>
+  <span class="eyebrow">Hand-Picked · Updated Live</span>
   <h1>Fresh deals,<br><span class="stamp-word">stamped</span> daily.</h1>
   <p>Verified discounts & loot offers posted the moment prices drop. Click any deal to grab the offer directly!</p>
   <div class="stats-row">
@@ -293,9 +290,9 @@ function showToast(msg) {
 }
 
 function timeAgo(ts){
-  if (!ts) return 'recently';
+  if (!ts) return 'just now';
   const diff = Math.floor((Date.now() - ts) / 1000);
-  if (diff < 60) return 'just now';
+  if (diff < 60 || diff < 0) return 'just now';
   if (diff < 3600) return Math.floor(diff/60) + 'm ago';
   if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
   return Math.floor(diff/86400) + 'd ago';
@@ -358,7 +355,6 @@ function buildChips(){
     `<button class="chip ${c===activeCategory && specialFilter==='All'?'active':''}" data-cat="${escapeHtml(c)}" data-filter="All" type="button">${escapeHtml(c)}</button>`
   ).join('');
 
-  // Add quick smart filters if applicable
   html += `<button class="chip chip-tag ${specialFilter==='under500'?'active':''}" data-cat="All" data-filter="under500" type="button">🔥 Under ₹500</button>`;
   html += `<button class="chip chip-tag ${specialFilter==='50off'?'active':''}" data-cat="All" data-filter="50off" type="button">⚡ 50%+ OFF</button>`;
 
@@ -382,7 +378,7 @@ function renderTopDeal(){
   slot.innerHTML = `
     <div class="top-deal">
       <div class="top-deal-media">
-        ${pinned.image ? `<img src="${escapeHtml(pinned.image)}" alt="${escapeHtml(pinned.title)}">` : `<span class="emoji-fallback">${pinned.emoji || '🏷️'}</span>`}
+        ${pinned.image ? `<img src="${escapeHtml(pinned.image)}" alt="${escapeHtml(pinned.title)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="emoji-fallback" style="display:none;">${pinned.emoji || '🏷️'}</span>` : `<span class="emoji-fallback">${pinned.emoji || '🏷️'}</span>`}
       </div>
       <div class="top-deal-body">
         <div class="top-deal-cat">${escapeHtml(pinned.category)}</div>
@@ -404,9 +400,13 @@ function render(){
   buildChips();
   renderTopDeal();
 
+  // Dynamic Real-Time KPI Stats
+  const nowTs = Date.now();
+  const maxTs = deals.length ? Math.max(...deals.map(d=>d.createdAt||nowTs)) : nowTs;
+  
   document.getElementById('statTotal').textContent = deals.length;
   document.getElementById('statCats').textContent = new Set(deals.map(d=>d.category)).size;
-  document.getElementById('statLast').textContent = deals.length ? timeAgo(Math.max(...deals.map(d=>d.createdAt||0))) : '—';
+  document.getElementById('statLast').textContent = deals.length ? timeAgo(maxTs) : '—';
 
   let filtered = deals.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   
@@ -441,7 +441,7 @@ function render(){
       <div class="notch top"></div>
       <div class="notch bottom"></div>
       <div class="ticket-stub ${hasImg ? 'has-image' : ''}">
-        ${hasImg ? `<img src="${escapeHtml(d.image)}" alt="${escapeHtml(d.title)}" loading="lazy">` : `<div class="emoji">${d.emoji || '🏷️'}</div>`}
+        ${hasImg ? `<img src="${escapeHtml(d.image)}" alt="${escapeHtml(d.title)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="emoji" style="display:none;">${d.emoji || '🏷️'}</div>` : `<div class="emoji">${d.emoji || '🏷️'}</div>`}
         <div class="cat">${escapeHtml(d.category)}</div>
       </div>
       <div class="ticket-body">
@@ -453,7 +453,7 @@ function render(){
           <span class="price-now">${escapeHtml(d.now)}</span>
           ${d.was ? `<span class="price-was">${escapeHtml(d.was)}</span>` : ''}
         </div>
-        <div class="ticket-meta">Posted ${timeAgo(d.createdAt)}</div>
+        <div class="ticket-meta">Posted ${timeAgo(d.createdAt || Date.now())}</div>
         <div class="ticket-actions">
           <a class="grab-btn" href="${escapeHtml(d.link)}" target="_blank" rel="noopener noreferrer sponsored">Grab deal →</a>
           <button class="share-btn" onclick="shareOrCopy('${escapeHtml(d.title)}', '${escapeHtml(d.link)}')" title="Share or Copy Link" type="button">
