@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deals Hub — Daily Hand-Picked Deals & Discounts</title>
 <meta name="description" content="Hand-picked deals, loot offers, and price drops updated daily. Direct affiliate links with verified discounts.">
 
-<!-- ===================================================================
-     OPEN GRAPH / SOCIAL PREVIEW META TAGS
-     =================================================================== -->
+<!-- OPEN GRAPH / SOCIAL PREVIEW META TAGS -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Deals Hub — Daily Deals & Loot Offers">
 <meta property="og:description" content="Hand-picked deals and discounts, posted daily. Save big on Electronics, Fashion & more!">
@@ -22,41 +20,90 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#17181C;
-    --ink-soft:#1E2026;
-    --ink-line:#33353D;
-    --paper:#F5EFDD;
-    --paper-shadow:#DACD9F;
-    --stamp:#E4483A;
-    --stamp-dark:#B93529;
-    --mustard:#F0A93B;
-    --forest:#2E8B67;
-    --telegram:#229ED9;
-    --whatsapp:#25D366;
-    --text-dark:#221C12;
-    --text-light:#F5EFDD;
-    --text-muted:#9EA0AA;
-    --radius:4px;
+  :root {
+    /* DEFAULT DARK THEME */
+    --bg-main: #141518;
+    --bg-gradient-1: rgba(228,72,58,0.12);
+    --bg-gradient-2: rgba(240,169,59,0.08);
+    --header-bg: rgba(20,21,24,0.92);
+    --card-bg: #FAF5E8;
+    --card-shadow: #DCD0AC;
+    --card-text: #1A1B20;
+    --text-primary: #FAF5E8;
+    --text-muted: #A0A3AE;
+    --border-line: #2E313A;
+    --stamp: #E4483A;
+    --stamp-hover: #C5372A;
+    --forest: #23865D;
+    --mustard: #F0A93B;
+    --telegram: #229ED9;
+    --whatsapp: #25D366;
+    --btn-ghost-bg: transparent;
+    --btn-ghost-text: #FAF5E8;
+    --btn-ghost-border: #3D404C;
+    --share-btn-bg: #EAE1C5;
+    --share-btn-hover: #DDD2B1;
+    --share-btn-text: #1A1B20;
+    --share-btn-border: #C8BD9A;
+    --search-bg: #1E2026;
+    --search-text: #FAF5E8;
+    --chip-bg: #1E2026;
+    --chip-text: #A0A3AE;
+    --chip-border: #333642;
+    --stub-bg: #EFE6CD;
+    --radius: 4px;
   }
+
+  [data-theme="light"] {
+    /* LIGHT THEME */
+    --bg-main: #F4EFE2;
+    --bg-gradient-1: rgba(228,72,58,0.06);
+    --bg-gradient-2: rgba(240,169,59,0.06);
+    --header-bg: rgba(244,239,226,0.94);
+    --card-bg: #FFFFFF;
+    --card-shadow: #E2D7B9;
+    --card-text: #141518;
+    --text-primary: #141518;
+    --text-muted: #646772;
+    --border-line: #DFD5BE;
+    --stamp: #D93829;
+    --stamp-hover: #B52B1D;
+    --forest: #1A754E;
+    --mustard: #D48817;
+    --btn-ghost-bg: #EAE3D2;
+    --btn-ghost-text: #141518;
+    --btn-ghost-border: #CDC0A4;
+    --share-btn-bg: #F2E9CE;
+    --share-btn-hover: #E4D8B6;
+    --share-btn-text: #141518;
+    --share-btn-border: #C8BB96;
+    --search-bg: #FFFFFF;
+    --search-text: #141518;
+    --chip-bg: #EAE3D2;
+    --chip-text: #50525C;
+    --chip-border: #D5C8AA;
+    --stub-bg: #F5ECD5;
+  }
+
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:var(--ink); color:var(--text-light); font-family:'Inter',sans-serif; min-height:100vh;
+    background:var(--bg-main); color:var(--text-primary); font-family:'Inter',sans-serif; min-height:100vh;
     background-image:
-      radial-gradient(circle at 15% 10%, rgba(228,72,58,0.10), transparent 40%),
-      radial-gradient(circle at 90% 30%, rgba(240,169,59,0.08), transparent 35%);
+      radial-gradient(circle at 15% 10%, var(--bg-gradient-1), transparent 40%),
+      radial-gradient(circle at 90% 30%, var(--bg-gradient-2), transparent 35%);
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
   a{color:inherit;}
   button{font-family:inherit;cursor:pointer;}
   :focus-visible{outline:3px solid var(--mustard); outline-offset:2px;}
-  ::selection{background:var(--stamp); color:var(--text-light);}
+  ::selection{background:var(--stamp); color:#FFFFFF;}
   img{max-width:100%; display:block;}
 
   /* --- Social Alert Banner --- */
   .social-banner {
     background: linear-gradient(90deg, #1b2838 0%, #17202a 100%);
-    border-bottom: 1px solid var(--ink-line);
+    border-bottom: 1px solid var(--border-line);
     padding: 10px 16px;
     font-size: 13px;
     text-align: center;
@@ -72,7 +119,7 @@
   }
   .social-banner span {
     font-weight: 500;
-    color: var(--paper);
+    color: #FAF5E8;
   }
   .social-btn {
     display: inline-flex;
@@ -90,104 +137,126 @@
   .social-btn.whatsapp { background: var(--whatsapp); color: #fff; }
 
   /* --- Header --- */
-  header{position:sticky; top:0; z-index:40; background:rgba(23,24,28,0.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--ink-line);}
+  header{position:sticky; top:0; z-index:40; background:var(--header-bg); backdrop-filter:blur(8px); border-bottom:1px solid var(--border-line); transition: background-color 0.25s ease;}
   .header-inner{max-width:1160px; margin:0 auto; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px;}
   .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
-  .brand-mark{width:36px; height:36px; background:var(--stamp); border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px dashed var(--paper); flex-shrink:0;}
-  .brand-mark span{font-family:'Bebas Neue'; font-size:15px; color:var(--paper); letter-spacing:0.02em;}
-  .brand-name{font-family:'Bebas Neue'; font-size:25px; letter-spacing:0.06em; color:var(--paper);}
+  .brand-mark{width:36px; height:36px; background:var(--stamp); border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px dashed #FAF5E8; flex-shrink:0;}
+  .brand-mark span{font-family:'Bebas Neue'; font-size:15px; color:#FAF5E8; letter-spacing:0.02em;}
+  .brand-name{font-family:'Bebas Neue'; font-size:25px; letter-spacing:0.06em; color:var(--text-primary);}
   .brand-name em{font-style:normal; color:var(--stamp);}
-  .btn{border:none; border-radius:var(--radius); padding:9px 16px; font-weight:600; font-size:13px; display:inline-flex; align-items:center; gap:8px; transition:transform .15s ease, box-shadow .15s ease;}
+  
+  .header-actions { display: flex; align-items: center; gap: 10px; }
+  .btn{border:none; border-radius:var(--radius); padding:9px 16px; font-weight:600; font-size:13px; display:inline-flex; align-items:center; gap:8px; transition:transform .15s ease, background-color .15s ease, color .15s ease, border-color .15s ease;}
   .btn:active{transform:translateY(1px);}
   .btn-primary{background:var(--stamp); color:#fff;}
-  .btn-primary:hover{box-shadow:0 4px 14px rgba(228,72,58,0.4);}
-  .btn-ghost{background:transparent; color:var(--paper); border:1px solid var(--ink-line);}
-  .btn-ghost:hover{border-color:var(--paper);}
+  .btn-primary:hover{background:var(--stamp-hover); box-shadow:0 4px 14px rgba(228,72,58,0.35);}
+  .btn-ghost{background:var(--btn-ghost-bg); color:var(--btn-ghost-text); border:1px solid var(--btn-ghost-border);}
+  .btn-ghost:hover{border-color:var(--text-primary);}
 
   /* --- Hero --- */
   .hero{max-width:1160px; margin:0 auto; padding:44px 24px 32px;}
   .eyebrow{display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mustard); border:1px solid rgba(240,169,59,0.4); padding:5px 12px; border-radius:100px; margin-bottom:18px;}
   .eyebrow::before{content:"●"; color:var(--forest); font-size:9px;}
-  .hero h1{font-family:'Bebas Neue'; font-size:clamp(42px,7vw,80px); line-height:0.95; margin:0 0 16px; color:var(--paper); letter-spacing:0.01em; max-width:16ch;}
+  .hero h1{font-family:'Bebas Neue'; font-size:clamp(42px,7vw,80px); line-height:0.95; margin:0 0 16px; color:var(--text-primary); letter-spacing:0.01em; max-width:16ch;}
   .hero h1 .stamp-word{color:var(--stamp);}
   .hero p{font-size:16px; line-height:1.6; color:var(--text-muted); max-width:54ch; margin:0 0 24px;}
-  .stats-row{display:flex; gap:0; flex-wrap:wrap; border-top:1px solid var(--ink-line); margin-top:16px;}
-  .stat{padding:16px 24px 0 0; border-right:1px dashed var(--ink-line); margin-right:24px;}
+  .stats-row{display:flex; gap:0; flex-wrap:wrap; border-top:1px solid var(--border-line); margin-top:16px;}
+  .stat{padding:16px 24px 0 0; border-right:1px dashed var(--border-line); margin-right:24px;}
   .stat:last-child{border-right:none;}
-  .stat-num{font-family:'Bebas Neue'; font-size:32px; color:var(--paper); display:block;}
+  .stat-num{font-family:'Bebas Neue'; font-size:32px; color:var(--text-primary); display:block;}
   .stat-label{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted);}
 
   /* --- Top Deal (Pinned) --- */
   .top-deal-wrap{max-width:1160px; margin:0 auto; padding:0 24px 36px;}
-  .top-deal-label{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--mustard); margin-bottom:12px; display:flex; align-items:center; gap:8px;}
+  .top-deal-label{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--mustard); margin-bottom:12px; display:flex; align-items:center; gap:8px; font-weight:600;}
   .top-deal-label::before{content:"★";}
   .top-deal{
-    display:flex; background:var(--paper); border-radius:6px; overflow:hidden;
-    box-shadow:0 14px 0 -6px var(--paper-shadow), 0 20px 34px rgba(0,0,0,0.4);
+    display:flex; background:var(--card-bg); border-radius:6px; overflow:hidden;
+    box-shadow:0 14px 0 -6px var(--card-shadow), 0 20px 34px rgba(0,0,0,0.25);
+    border:1px solid var(--card-shadow);
   }
-  .top-deal-media{width:36%; min-width:220px; background:#e9e0c4; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;}
+  .top-deal-media{width:36%; min-width:220px; background:var(--stub-bg); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;}
   .top-deal-media img{width:100%; height:100%; object-fit:cover;}
   .top-deal-media .emoji-fallback{font-size:72px;}
-  .top-deal-body{flex:1; padding:24px 28px; color:var(--text-dark); display:flex; flex-direction:column;}
-  .top-deal-cat{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; opacity:0.65; margin-bottom:6px;}
-  .top-deal-title{font-size:22px; font-weight:700; margin:0 0 10px; line-height:1.25;}
+  .top-deal-body{flex:1; padding:24px 28px; color:var(--card-text); display:flex; flex-direction:column;}
+  .top-deal-cat{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; opacity:0.75; margin-bottom:6px; font-weight:600;}
+  .top-deal-title{font-size:22px; font-weight:700; margin:0 0 10px; line-height:1.25; color:var(--card-text);}
   .top-deal-price{display:flex; align-items:baseline; gap:10px; margin-bottom:16px;}
   .top-deal-price .now{font-family:'IBM Plex Mono'; font-weight:700; font-size:26px; color:var(--forest);}
-  .top-deal-price .was{font-family:'IBM Plex Mono'; font-size:15px; color:#8a8272; text-decoration:line-through;}
+  .top-deal-price .was{font-family:'IBM Plex Mono'; font-size:15px; color:#787262; text-decoration:line-through;}
   .top-deal-actions{display:flex; gap:10px; margin-top:auto; align-self:flex-start; flex-wrap:wrap;}
 
   /* --- Filter Bar & Chips --- */
   .filter-bar{max-width:1160px; margin:0 auto; padding:0 24px 24px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
-  .search-wrap{display:flex; align-items:center; gap:8px; background:var(--ink-soft); border:1px solid var(--ink-line); border-radius:100px; padding:8px 16px; flex:1; min-width:200px; max-width:320px;}
-  .search-wrap input{background:transparent; border:none; outline:none; color:var(--paper); font-size:14px; width:100%;}
+  .search-wrap{display:flex; align-items:center; gap:8px; background:var(--search-bg); border:1px solid var(--chip-border); border-radius:100px; padding:8px 16px; flex:1; min-width:200px; max-width:320px;}
+  .search-wrap input{background:transparent; border:none; outline:none; color:var(--search-text); font-size:14px; width:100%;}
   .search-wrap input::placeholder{color:var(--text-muted);}
   .chip-scroll{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
-  .chip{background:var(--ink-soft); border:1px solid var(--ink-line); color:var(--text-muted); padding:7px 14px; border-radius:100px; font-size:13px; font-weight:500; white-space:nowrap; transition:all .15s ease;}
+  .chip{background:var(--chip-bg); border:1px solid var(--chip-border); color:var(--chip-text); padding:7px 14px; border-radius:100px; font-size:13px; font-weight:500; white-space:nowrap; transition:all .15s ease;}
   .chip.active{background:var(--stamp); border-color:var(--stamp); color:#fff;}
-  .chip:hover:not(.active){border-color:var(--paper); color:var(--paper);}
-  .chip-tag{background:rgba(240,169,59,0.12); border-color:rgba(240,169,59,0.4); color:var(--mustard);}
+  .chip:hover:not(.active){border-color:var(--text-primary); color:var(--text-primary);}
+  .chip-tag{background:rgba(240,169,59,0.14); border-color:rgba(240,169,59,0.45); color:var(--mustard); font-weight:600;}
 
   /* --- Grid & Deal Tickets --- */
   main{max-width:1160px; margin:0 auto; padding:0 24px 80px;}
   .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(310px,1fr)); gap:24px;}
 
-  .ticket{display:flex; background:var(--paper); border-radius:var(--radius); box-shadow:0 10px 0 -4px var(--paper-shadow), 0 14px 24px rgba(0,0,0,0.35); position:relative; overflow:visible; animation:rise .35s ease both;}
+  .ticket{display:flex; background:var(--card-bg); border-radius:var(--radius); box-shadow:0 10px 0 -4px var(--card-shadow), 0 14px 24px rgba(0,0,0,0.2); position:relative; overflow:visible; border:1px solid var(--card-shadow); animation:rise .35s ease both;}
   @keyframes rise{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
-  .ticket-stub{width:34%; min-width:100px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0; border-right:2px dashed var(--paper-shadow); overflow:hidden; background:#e9e0c4;}
+  
+  .ticket-stub{width:34%; min-width:100px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0; border-right:2px dashed var(--card-shadow); overflow:hidden; background:var(--stub-bg);}
   .ticket-stub img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
   .ticket-stub .emoji{font-size:36px; line-height:1; margin-bottom:8px; z-index:1;}
-  .ticket-stub .cat{font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dark); opacity:0.75; text-align:center; z-index:1;}
-  .ticket-stub.has-image .cat{position:absolute; bottom:4px; left:0; right:0; background:rgba(245,239,221,0.92); padding:3px 4px;}
-  .notch{position:absolute; width:20px; height:20px; background:var(--ink); border-radius:50%; right:-11px; z-index:2;}
+  .ticket-stub .cat{font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--card-text); opacity:0.8; text-align:center; z-index:1; font-weight:600;}
+  .ticket-stub.has-image .cat{position:absolute; bottom:4px; left:0; right:0; background:rgba(250,245,232,0.92); padding:3px 4px; color:#141518;}
+  
+  .notch{position:absolute; width:20px; height:20px; background:var(--bg-main); border-radius:50%; right:-11px; z-index:2; transition:background-color 0.25s ease;}
   .notch.top{top:-11px;}
   .notch.bottom{bottom:-11px;}
 
-  .ticket-body{flex:1; padding:16px 18px; display:flex; flex-direction:column; color:var(--text-dark);}
+  .ticket-body{flex:1; padding:16px 18px; display:flex; flex-direction:column; color:var(--card-text);}
   .ticket-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
-  .ticket-title{font-weight:700; font-size:15px; line-height:1.3; margin:0 0 4px;}
-  .stamp-badge{flex-shrink:0; font-family:'Bebas Neue'; font-size:14px; color:var(--stamp); border:2px solid var(--stamp); border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center; text-align:center; line-height:1.1; transform:rotate(-8deg); opacity:0.9; white-space:pre-line;}
+  .ticket-title{font-weight:700; font-size:15px; line-height:1.3; margin:0 0 4px; color:var(--card-text);}
+  .stamp-badge{flex-shrink:0; font-family:'Bebas Neue'; font-size:14px; color:var(--stamp); border:2px solid var(--stamp); border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center; text-align:center; line-height:1.1; transform:rotate(-8deg); opacity:0.95; white-space:pre-line;}
   .price-row{display:flex; align-items:baseline; gap:8px; margin:8px 0 4px;}
   .price-now{font-family:'IBM Plex Mono'; font-weight:700; font-size:19px; color:var(--forest);}
-  .price-was{font-family:'IBM Plex Mono'; font-size:13px; color:#8a8272; text-decoration:line-through;}
-  .ticket-meta{font-size:11.5px; color:#8a8272; margin-bottom:12px;}
-  .ticket-actions{display:flex; gap:6px; margin-top:auto;}
-  .grab-btn{flex:1; background:var(--stamp-dark); color:#fff; text-align:center; text-decoration:none; font-weight:700; font-size:13px; padding:10px 12px; border-radius:var(--radius); letter-spacing:0.02em; transition:background .15s ease;}
-  .grab-btn:hover{background:var(--stamp);}
-  .share-btn{background:transparent; border:1px solid #c4b998; color:var(--text-dark); padding:10px; border-radius:var(--radius); display:flex; align-items:center; justify-content:center; transition:background .15s ease;}
-  .share-btn:hover{background:#e8debd;}
-  .affiliate-note{font-family:'IBM Plex Mono'; font-size:9px; color:#a39a80; margin-top:6px; letter-spacing:0.02em;}
+  .price-was{font-family:'IBM Plex Mono'; font-size:13px; color:#787262; text-decoration:line-through;}
+  .ticket-meta{font-size:11.5px; color:#787262; margin-bottom:12px; font-weight:500;}
+  .ticket-actions{display:flex; gap:8px; margin-top:auto;}
+  .grab-btn{flex:1; background:var(--stamp); color:#fff; text-align:center; text-decoration:none; font-weight:700; font-size:13px; padding:10px 12px; border-radius:var(--radius); letter-spacing:0.02em; transition:background .15s ease;}
+  .grab-btn:hover{background:var(--stamp-hover);}
+  
+  /* CRITICAL FIX: Share Button Contrast & Visibility */
+  .share-btn{
+    background: var(--share-btn-bg);
+    border: 1px solid var(--share-btn-border);
+    color: var(--share-btn-text);
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .share-btn:hover{ background: var(--share-btn-hover); }
+  .share-btn svg{ stroke: var(--share-btn-text); flex-shrink: 0; }
 
-  .empty{grid-column:1/-1; text-align:center; padding:70px 20px; border:1px dashed var(--ink-line); border-radius:8px;}
+  .affiliate-note{font-family:'IBM Plex Mono'; font-size:9px; color:#8C836D; margin-top:6px; letter-spacing:0.02em; font-weight:500;}
+
+  .empty{grid-column:1/-1; text-align:center; padding:70px 20px; border:1px dashed var(--border-line); border-radius:8px;}
   .empty .glyph{font-size:40px; margin-bottom:12px;}
-  .empty h3{font-family:'Bebas Neue'; font-size:28px; color:var(--paper); margin:0 0 8px; letter-spacing:0.03em;}
+  .empty h3{font-family:'Bebas Neue'; font-size:28px; color:var(--text-primary); margin:0 0 8px; letter-spacing:0.03em;}
   .empty p{color:var(--text-muted); max-width:40ch; margin:0 auto;}
 
   /* --- Toast Notification --- */
-  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(100px); background:var(--paper); color:var(--text-dark); font-weight:600; font-size:13px; padding:12px 20px; border-radius:100px; box-shadow:0 10px 25px rgba(0,0,0,0.5); z-index:100; opacity:0; transition:transform 0.25s ease, opacity 0.25s ease; pointer-events:none;}
+  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(100px); background:var(--card-bg); color:var(--card-text); font-weight:600; font-size:13.5px; padding:12px 22px; border-radius:100px; box-shadow:0 10px 30px rgba(0,0,0,0.35); border:1px solid var(--card-shadow); z-index:100; opacity:0; transition:transform 0.25s ease, opacity 0.25s ease; pointer-events:none;}
   .toast.show{transform:translateX(-50%) translateY(0); opacity:1;}
 
-  /* --- Footer & Disclosure Modal --- */
-  footer{border-top:1px solid var(--ink-line); padding:28px 24px 40px; text-align:center;}
+  /* --- Footer --- */
+  footer{border-top:1px solid var(--border-line); padding:28px 24px 40px; text-align:center;}
   footer p{font-size:12px; color:var(--text-muted); margin:6px 0; font-family:'IBM Plex Mono';}
   footer a{color:var(--mustard); text-decoration:underline;}
   .loading-row{grid-column:1/-1; text-align:center; padding:60px 0; color:var(--text-muted); font-family:'IBM Plex Mono'; font-size:13px;}
@@ -198,7 +267,7 @@
   }
   @media (max-width:560px){
     .ticket{flex-direction:column;}
-    .ticket-stub{width:100%; height:140px; flex-direction:row; border-right:none; border-bottom:2px dashed var(--paper-shadow);}
+    .ticket-stub{width:100%; height:140px; flex-direction:row; border-right:none; border-bottom:2px dashed var(--card-shadow);}
     .notch{top:auto; left:50%; transform:translateX(-50%); right:auto;}
     .notch.top{top:-11px;}
     .notch.bottom{bottom:-11px;}
@@ -229,7 +298,10 @@
       <span class="brand-mark"><span>DH</span></span>
       <span class="brand-name">DEALS<em>HUB</em></span>
     </a>
-    <button class="btn btn-ghost" id="refreshBtn" type="button">🔄 Refresh</button>
+    <div class="header-actions">
+      <button class="btn btn-ghost" id="themeToggleBtn" type="button" title="Toggle Light/Dark Theme">🌙 Dark</button>
+      <button class="btn btn-ghost" id="refreshBtn" type="button">🔄 Refresh</button>
+    </div>
   </div>
 </header>
 
@@ -281,7 +353,23 @@ let searchTerm = '';
 const grid = document.getElementById('dealsGrid');
 const chipRow = document.getElementById('chipRow');
 const toastEl = document.getElementById('toast');
+const themeToggleBtn = document.getElementById('themeToggleBtn');
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* --- THEME TOGGLE (DARK / LIGHT MODE) --- */
+const savedTheme = localStorage.getItem('dh_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+setTheme(savedTheme);
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('dh_theme', theme);
+  themeToggleBtn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+}
+
+themeToggleBtn.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  setTheme(current === 'dark' ? 'light' : 'dark');
+});
 
 function showToast(msg) {
   toastEl.textContent = msg;
@@ -390,7 +478,10 @@ function renderTopDeal(){
         </div>
         <div class="top-deal-actions">
           <a class="btn btn-primary top-deal-cta" href="${escapeHtml(pinned.link)}" target="_blank" rel="noopener noreferrer sponsored">Grab this deal →</a>
-          <button class="btn btn-ghost" onclick="shareOrCopy('${escapeHtml(pinned.title)}', '${escapeHtml(pinned.link)}')" type="button">🔗 Share</button>
+          <button class="share-btn" onclick="shareOrCopy('${escapeHtml(pinned.title)}', '${escapeHtml(pinned.link)}')" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            <span>Share</span>
+          </button>
         </div>
       </div>
     </div>`;
@@ -457,7 +548,8 @@ function render(){
         <div class="ticket-actions">
           <a class="grab-btn" href="${escapeHtml(d.link)}" target="_blank" rel="noopener noreferrer sponsored">Grab deal →</a>
           <button class="share-btn" onclick="shareOrCopy('${escapeHtml(d.title)}', '${escapeHtml(d.link)}')" title="Share or Copy Link" type="button">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            <span>Share</span>
           </button>
         </div>
         <div class="affiliate-note">Affiliate link</div>
