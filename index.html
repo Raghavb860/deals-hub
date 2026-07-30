@@ -36,8 +36,6 @@
     --stamp-hover: #C5372A;
     --forest: #23865D;
     --mustard: #F0A93B;
-    --telegram: #229ED9;
-    --whatsapp: #25D366;
     --btn-ghost-bg: transparent;
     --btn-ghost-text: #FAF5E8;
     --btn-ghost-border: #3D404C;
@@ -100,45 +98,9 @@
   ::selection{background:var(--stamp); color:#FFFFFF;}
   img{max-width:100%; display:block;}
 
-  /* --- Social Alert Banner --- */
-  .social-banner {
-    background: linear-gradient(90deg, #1b2838 0%, #17202a 100%);
-    border-bottom: 1px solid var(--border-line);
-    padding: 10px 16px;
-    font-size: 13px;
-    text-align: center;
-  }
-  .social-banner-inner {
-    max-width: 1160px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .social-banner span {
-    font-weight: 500;
-    color: #FAF5E8;
-  }
-  .social-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-  }
-  .social-btn:hover { transform: translateY(-1px); opacity: 0.9; }
-  .social-btn.telegram { background: var(--telegram); color: #fff; }
-  .social-btn.whatsapp { background: var(--whatsapp); color: #fff; }
-
   /* --- Header --- */
   header{position:sticky; top:0; z-index:40; background:var(--header-bg); backdrop-filter:blur(8px); border-bottom:1px solid var(--border-line); transition: background-color 0.25s ease;}
-  .header-inner{max-width:1160px; margin:0 auto; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px;}
+  .header-inner{max-width:1160px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px;}
   .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
   .brand-mark{width:36px; height:36px; background:var(--stamp); border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px dashed #FAF5E8; flex-shrink:0;}
   .brand-mark span{font-family:'Bebas Neue'; font-size:15px; color:#FAF5E8; letter-spacing:0.02em;}
@@ -226,7 +188,6 @@
   .grab-btn{flex:1; background:var(--stamp); color:#fff; text-align:center; text-decoration:none; font-weight:700; font-size:13px; padding:10px 12px; border-radius:var(--radius); letter-spacing:0.02em; transition:background .15s ease;}
   .grab-btn:hover{background:var(--stamp-hover);}
   
-  /* CRITICAL FIX: Share Button Contrast & Visibility */
   .share-btn{
     background: var(--share-btn-bg);
     border: 1px solid var(--share-btn-border);
@@ -277,20 +238,6 @@
 </style>
 </head>
 <body>
-
-<div class="social-banner" id="socialBanner">
-  <div class="social-banner-inner">
-    <span>🔥 Never miss a 90% OFF loot deal! Join our daily alert channels:</span>
-    <a href="https://t.me/your_telegram_channel" target="_blank" rel="noopener" class="social-btn telegram" id="tgBtn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-      Telegram Group
-    </a>
-    <a href="https://chat.whatsapp.com/your_whatsapp_group" target="_blank" rel="noopener" class="social-btn whatsapp" id="waBtn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.8 14.16c-.24.68-1.2 1.25-1.94 1.41-.51.11-1.17.2-3.41-.73-2.86-1.18-4.7-4.08-4.84-4.27-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.28.57-.35.76-.35.19 0 .38.01.54.01.17 0 .41-.07.64.49.24.57.81 1.98.88 2.12.07.14.12.31.02.5-.1.19-.15.31-.3.49-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.07 1.31 2.36 1.46.29.15.46.13.63-.07.17-.2.73-.85.92-1.14.19-.29.38-.24.64-.15.26.09 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.7-.17 1.38z"/></svg>
-      WhatsApp Group
-    </a>
-  </div>
-</div>
 
 <header>
   <div class="header-inner">
