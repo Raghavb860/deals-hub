@@ -48,7 +48,7 @@
     --chip-bg: #1E2026;
     --chip-text: #A0A3AE;
     --chip-border: #333642;
-    --stub-bg: #EFE6CD;
+    --stub-bg: #FFFFFF;
     --radius: 4px;
   }
 
@@ -80,7 +80,7 @@
     --chip-bg: #EAE3D2;
     --chip-text: #50525C;
     --chip-border: #D5C8AA;
-    --stub-bg: #F5ECD5;
+    --stub-bg: #FFFFFF;
   }
 
   *{box-sizing:border-box;}
@@ -137,8 +137,8 @@
     box-shadow:0 14px 0 -6px var(--card-shadow), 0 20px 34px rgba(0,0,0,0.25);
     border:1px solid var(--card-shadow);
   }
-  .top-deal-media{width:36%; min-width:220px; background:var(--stub-bg); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;}
-  .top-deal-media img{width:100%; height:100%; object-fit:cover;}
+  .top-deal-media{width:36%; min-width:220px; background:#FFFFFF; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; padding:12px;}
+  .top-deal-media img{width:100%; height:100%; object-fit:contain;}
   .top-deal-media .emoji-fallback{font-size:72px;}
   .top-deal-body{flex:1; padding:24px 28px; color:var(--card-text); display:flex; flex-direction:column;}
   .top-deal-cat{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; opacity:0.75; margin-bottom:6px; font-weight:600;}
@@ -166,13 +166,13 @@
   .ticket{display:flex; background:var(--card-bg); border-radius:var(--radius); box-shadow:0 10px 0 -4px var(--card-shadow), 0 14px 24px rgba(0,0,0,0.2); position:relative; overflow:visible; border:1px solid var(--card-shadow); animation:rise .35s ease both;}
   @keyframes rise{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
   
-  .ticket-stub{width:34%; min-width:100px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0; border-right:2px dashed var(--card-shadow); overflow:hidden; background:var(--stub-bg);}
-  .ticket-stub img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
+  .ticket-stub{width:36%; min-width:110px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:6px; border-right:2px dashed var(--card-shadow); overflow:hidden; background:#FFFFFF;}
+  .ticket-stub img{width:100%; height:100%; object-fit:contain; position:absolute; inset:0; padding:8px;}
   .ticket-stub .emoji{font-size:36px; line-height:1; margin-bottom:8px; z-index:1;}
   .ticket-stub .cat{font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--card-text); opacity:0.8; text-align:center; z-index:1; font-weight:600;}
-  .ticket-stub.has-image .cat{position:absolute; bottom:4px; left:0; right:0; background:rgba(250,245,232,0.92); padding:3px 4px; color:#141518;}
+  .ticket-stub.has-image .cat{position:absolute; bottom:4px; left:0; right:0; background:rgba(250,245,232,0.94); padding:3px 4px; color:#141518; z-index:2;}
   
-  .notch{position:absolute; width:20px; height:20px; background:var(--bg-main); border-radius:50%; right:-11px; z-index:2; transition:background-color 0.25s ease;}
+  .notch{position:absolute; width:20px; height:20px; background:var(--bg-main); border-radius:50%; right:-11px; z-index:3; transition:background-color 0.25s ease;}
   .notch.top{top:-11px;}
   .notch.bottom{bottom:-11px;}
 
