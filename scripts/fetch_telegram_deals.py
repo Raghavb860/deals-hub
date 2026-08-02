@@ -4,10 +4,13 @@ import json
 import html
 import time
 import os
+import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
 
 TELEGRAM_CHANNELS = ["EOnDeals", "TIBGDeals"]
 AFFILIATE_TAG = "dealshub6706-21"
 DEALS_JSON_PATH = os.path.join(os.path.dirname(__file__), "..", "deals.json")
+FEED_XML_PATH = os.path.join(os.path.dirname(__file__), "..", "feed.xml")
 
 WA_PHONE_NUMBER_ID = os.getenv("WA_PHONE_NUMBER_ID", "1325947473926027")
 WA_ACCESS_TOKEN = os.getenv("WA_ACCESS_TOKEN", "EAAbAYVkv24oBSN7tuqobK3gylBXnEMUnqTZCF0iEYZAz1wUOBElFxO0WqCuv4BhWvBg5l1dGxeysm4aZBitIJ0padH0oNExxBdabcFZB974zPtUD2ZBh4CBczdYogM3OC94e0u7az92l68RZBqx6gn6PhrC1YvC0sSny3ChzBKyZAau1GblIo9zbeh53H4GSgHGdCmMddp6XR943ISOn4cMbVuNbc7NkMHZBJPJDsTZCm1H5iYC9TPv1hAQ8bcrVSxVbf2QazyHYHEw8BI90OaOUs")
@@ -53,6 +56,38 @@ def calculate_discount(was_str, now_str):
     except Exception:
         pass
     return 0
+
+def generate_rss(deals):
+    try:
+        rss = ET.Element("rss", version="2.0")
+        channel = ET.SubElement(rss, "channel")
+        
+        ET.SubElement(channel, "title").text = "Deals Hub — Hand-Picked Deals & Discounts"
+        ET.SubElement(channel, "link").text = "https://raghavb860.github.io/deals-hub/"
+        ET.SubElement(channel, "description").text = "Today's best Amazon loot deals & price drops India."
+
+        for d in deals[:30]:
+            item = ET.SubElement(channel, "item")
+            ET.SubElement(item, "title").text = f"{d['title']} - {d['now']} (Was {d.get('was','')})"
+            ET.SubElement(item, "link").text = d["link"]
+            ET.SubElement(item, "guid").text = d["id"]
+            
+            desc = f"🔥 Price Drop: {d['now']}"
+            if d.get("was"):
+                desc += f" (MRP: {d['was']})"
+            if d.get("coupon"):
+                desc += f" | 🎟️ Coupon: {d['coupon']}"
+            desc += f"\n\nGrab deal: {d['link']}"
+            
+            ET.SubElement(item, "description").text = desc
+            ET.SubElement(item, "pubDate").text = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
+
+        tree = ET.ElementTree(rss)
+        ET.indent(tree, space="  ", level=0)
+        tree.write(FEED_XML_PATH, encoding="utf-8", xml_declaration=True)
+        print("Updated feed.xml RSS successfully!")
+    except Exception as e:
+        print(f"Error generating RSS: {e}")
 
 def post_deal_to_whatsapp(deal):
     if not WA_ACCESS_TOKEN or not WA_PHONE_NUMBER_ID or not WA_RECIPIENT:
@@ -111,20 +146,16 @@ def fetch_channel_deals(channel):
         
         title = lines[0][:100]
         
-        # Extract prices
         prices = re.findall(r'₹\s*([0-9,]+)', clean_text)
         if len(prices) < 2 and not ("OFF" in clean_text.upper() or "COUPON" in clean_text.upper()):
-            # SKIP normal deals with no discount or MRP mentioned!
             continue
             
         now_price = f"₹{prices[0]}" if len(prices) >= 1 else "Grab Deal"
         was_price = f"₹{prices[1]}" if len(prices) >= 2 else ""
 
-        # Extract Coupon if present
         coupon_match = re.search(r'(?:code|coupon|use)\s*:\s*([A-Z0-9_-]{4,15})', clean_text, re.IGNORECASE)
         coupon_code = coupon_match.group(1).upper() if coupon_match else ""
 
-        # STRICT DISCOUNT FILTER: Must have coupon OR at least 25% discount
         disc = calculate_discount(was_price, now_price)
         if disc < 25 and not coupon_code:
             continue
@@ -161,13 +192,11 @@ def main():
         try:
             with open(DEALS_JSON_PATH, "r", encoding="utf-8") as f:
                 raw = json.load(f)
-                # PURGE EXPIRED OR LOW DISCOUNT DEALS
                 now_ts = int(time.time() * 1000)
                 for d in raw:
                     disc = calculate_discount(d.get("was",""), d.get("now",""))
-                    # Keep pinned OR deals with coupon OR deals with >= 25% discount
                     if d.get("pinned") or d.get("coupon") or disc >= 25:
-                        d["createdAt"] = now_ts # Update timestamp to fresh
+                        d["createdAt"] = now_ts
                         existing.append(d)
         except Exception:
             existing = []
@@ -184,12 +213,12 @@ def main():
                 post_deal_to_whatsapp(d)
 
     combined = new_deals + existing
-    # Keep top 50 high-discount deals
     combined = combined[:50]
 
     with open(DEALS_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(combined, f, indent=2, ensure_ascii=False)
     
+    generate_rss(combined)
     print(f"Filter complete! Currently showing {len(combined)} verified high-discount & coupon deals.")
 
 if __name__ == "__main__":
