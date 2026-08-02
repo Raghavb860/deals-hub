@@ -568,7 +568,7 @@ function renderTopDeal(){
   slot.innerHTML = `
     <div class="top-deal">
       <div class="top-deal-media">
-        ${pinned.image ? `<img src="${escapeHtml(pinned.image)}" alt="${escapeHtml(pinned.title)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="emoji-fallback" style="display:none;">${pinned.emoji || '🏷️'}</span>` : `<span class="emoji-fallback">${pinned.emoji || '🏷️'}</span>`}
+        ${pinned.image ? `<img src="${escapeHtml(pinned.image)}" alt="${escapeHtml(pinned.title)}" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="emoji-fallback" style="display:none;">${pinned.emoji || '🏷️'}</span>` : `<span class="emoji-fallback">${pinned.emoji || '🏷️'}</span>`}
       </div>
       <div class="top-deal-body">
         <div class="top-deal-cat">${escapeHtml(pinned.category)}</div>
@@ -640,7 +640,7 @@ function render(){
       <div class="notch top"></div>
       <div class="notch bottom"></div>
       <div class="ticket-stub ${hasImg ? 'has-image' : ''}">
-        ${hasImg ? `<img src="${escapeHtml(d.image)}" alt="${escapeHtml(d.title)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="emoji" style="display:none;">${d.emoji || '🏷️'}</div>` : `<div class="emoji">${d.emoji || '🏷️'}</div>`}
+        ${hasImg ? `<img src="${escapeHtml(d.image)}" alt="${escapeHtml(d.title)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="emoji" style="display:none;">${d.emoji || '🏷️'}</div>` : `<div class="emoji">${d.emoji || '🏷️'}</div>`}
         <div class="cat">${escapeHtml(d.category)}</div>
       </div>
       <div class="ticket-body">
