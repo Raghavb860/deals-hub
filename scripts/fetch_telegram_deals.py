@@ -47,22 +47,32 @@ def resolve_url(url):
     except Exception:
         return url
 
-def calculate_discount(was_str, now_str):
+def fetch_real_amazon_photo(asin):
+    url = f"https://www.amazon.in/dp/{asin}"
     try:
-        was = float(re.sub(r'[^0-9.]', '', was_str))
-        now = float(re.sub(r'[^0-9.]', '', now_str))
-        if was > now and was > 0:
-            return int((1 - now / was) * 100)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+        }
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=6) as res:
+            html_text = res.read().decode('utf-8', errors='ignore')
+            
+            # Extract real photo URL from Amazon landing page
+            m = re.search(r'"landingImageUrl":"([^"]+)"', html_text)
+            if m:
+                return m.group(1).replace("\\/", "/")
+                
+            m = re.search(r'data-a-dynamic-image="{&quot;(https://m\.media-amazon\.com/images/I/[^&"]+)', html_text)
+            if m:
+                return m.group(1).replace("\\/", "/")
+
+            m = re.search(r'"large":"(https://m\.media-amazon\.com/images/I/[^"]+)"', html_text)
+            if m:
+                return m.group(1).replace("\\/", "/")
     except Exception:
         pass
-    return 0
-
-def clean_amazon_image(img_url):
-    if not img_url:
-        return ""
-    # Strip Amazon adsystem or sizing wrappers to get direct unblocked JPEG
-    cleaned = re.sub(r'\._[A-Z0-9_,]+_\.', '.', img_url)
-    return cleaned
+    return f"https://ws-in.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN={asin}&Format=_SL500_&ID=AsinImage&MarketPlace=IN"
 
 def generate_rss(deals):
     try:
@@ -152,20 +162,12 @@ def fetch_channel_deals(channel):
             continue
         
         title = lines[0][:100]
-        
         prices = re.findall(r'₹\s*([0-9,]+)', clean_text)
-        if len(prices) < 2 and not ("OFF" in clean_text.upper() or "COUPON" in clean_text.upper()):
-            continue
-            
         now_price = f"₹{prices[0]}" if len(prices) >= 1 else "Grab Deal"
         was_price = f"₹{prices[1]}" if len(prices) >= 2 else ""
 
         coupon_match = re.search(r'(?:code|coupon|use)\s*:\s*([A-Z0-9_-]{4,15})', clean_text, re.IGNORECASE)
         coupon_code = coupon_match.group(1).upper() if coupon_match else ""
-
-        disc = calculate_discount(was_price, now_price)
-        if disc < 25 and not coupon_code:
-            continue
 
         for link in links:
             resolved = resolve_url(link) if ('amzn.to' in link or 'amzn.in' in link) else link
@@ -173,14 +175,16 @@ def fetch_channel_deals(channel):
             if asin:
                 cat, emoji = categorize(title)
                 aff_link = f"https://www.amazon.in/dp/{asin}?tag={AFFILIATE_TAG}"
-                img_url = f"https://m.media-amazon.com/images/I/{asin}.jpg"
+                
+                # Fetch REAL photo directly from Amazon
+                real_img = fetch_real_amazon_photo(asin)
                 
                 deals.append({
                     "id": f"tg-{channel.lower()}-{asin}",
                     "title": title,
                     "category": cat,
                     "emoji": emoji,
-                    "image": img_url,
+                    "image": real_img,
                     "was": was_price,
                     "now": now_price,
                     "coupon": coupon_code,
@@ -193,20 +197,12 @@ def fetch_channel_deals(channel):
     return deals
 
 def main():
-    print("Fetching deals with STRICT DISCOUNT & REAL PHOTO filters...")
+    print("Fetching deals from Telegram & Amazon with REAL product photos...")
     existing = []
     if os.path.exists(DEALS_JSON_PATH):
         try:
             with open(DEALS_JSON_PATH, "r", encoding="utf-8") as f:
-                raw = json.load(f)
-                now_ts = int(time.time() * 1000)
-                for d in raw:
-                    # Clean image URL
-                    d["image"] = clean_amazon_image(d.get("image",""))
-                    disc = calculate_discount(d.get("was",""), d.get("now",""))
-                    if d.get("pinned") or d.get("coupon") or disc >= 25:
-                        d["createdAt"] = now_ts
-                        existing.append(d)
+                existing = json.load(f)
         except Exception:
             existing = []
 
@@ -222,13 +218,14 @@ def main():
                 post_deal_to_whatsapp(d)
 
     combined = new_deals + existing
-    combined = combined[:50]
+    # Keep up to 40 items
+    combined = combined[:40]
 
     with open(DEALS_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(combined, f, indent=2, ensure_ascii=False)
     
     generate_rss(combined)
-    print(f"Filter complete! Currently showing {len(combined)} verified high-discount & coupon deals.")
+    print(f"Catalog updated! Currently showing {len(combined)} deals with real photos and affiliate links.")
 
 if __name__ == "__main__":
     main()
