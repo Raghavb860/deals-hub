@@ -6,6 +6,13 @@
 <title>Deals Hub — Daily Hand-Picked Deals & Discounts</title>
 <meta name="description" content="Hand-picked deals, loot offers, and price drops updated daily. Direct affiliate links with verified discounts.">
 
+<!-- PWA Manifest & Theme Color -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#111215">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=192&auto=format&fit=crop">
+
 <!-- OPEN GRAPH / SOCIAL PREVIEW META TAGS -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Deals Hub — Daily Deals & Loot Offers">
@@ -16,6 +23,16 @@
 <meta name="twitter:title" content="Deals Hub — Daily Deals & Loot Offers">
 <meta name="twitter:description" content="Hand-picked deals and discounts, posted daily.">
 <meta name="twitter:image" content="https://raghavb860.github.io/deals-hub/og-image.jpg">
+
+<!-- GOOGLE ANALYTICS (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  // Replace G-MEASUREMENT_ID with your actual Google Analytics Measurement ID when ready
+  gtag('config', 'G-MEASUREMENT_ID', { 'anonymize_ip': true });
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -51,6 +68,8 @@
     --stub-bg: #FFFFFF;
     --kpi-bg: #181A20;
     --kpi-border: #282B36;
+    --coupon-bg: #FFF5D6;
+    --coupon-border: #E8CF7A;
     --radius: 8px;
   }
 
@@ -85,6 +104,8 @@
     --stub-bg: #FFFFFF;
     --kpi-bg: #EBE3CF;
     --kpi-border: #D8CCAFA;
+    --coupon-bg: #FFF9E6;
+    --coupon-border: #E2CF97;
   }
 
   *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
@@ -117,6 +138,10 @@
   .btn-primary{background:var(--stamp); color:#fff;}
   .btn-primary:hover{background:var(--stamp-hover); box-shadow:0 4px 14px rgba(228,72,58,0.35);}
   .btn-ghost{background:var(--btn-ghost-bg); color:var(--btn-ghost-text); border:1px solid var(--btn-ghost-border);}
+
+  /* --- PWA Install Banner --- */
+  .install-banner{background:linear-gradient(90deg, #E4483A, #F0A93B); color:#FFF; padding:10px 16px; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:space-between; gap:12px;}
+  .install-banner-btn{background:#FFF; color:#17181D; border:none; border-radius:100px; padding:5px 14px; font-weight:700; font-size:12px;}
 
   /* --- Hero --- */
   .hero{max-width:1160px; margin:0 auto; padding:28px 20px 24px;}
@@ -203,6 +228,15 @@
   .price-row{display:flex; align-items:baseline; gap:6px; margin:6px 0 2px;}
   .price-now{font-family:'IBM Plex Mono'; font-weight:700; font-size:18px; color:var(--forest);}
   .price-was{font-family:'IBM Plex Mono'; font-size:12.5px; color:#787262; text-decoration:line-through;}
+  
+  /* --- Coupon Box Styling --- */
+  .coupon-box{
+    background:var(--coupon-bg); border:1px dashed var(--coupon-border); border-radius:4px;
+    padding:6px 10px; margin:6px 0; display:flex; align-items:center; justify-content:space-between; gap:6px;
+    font-size:11.5px; font-weight:600; color:#4A3B10; cursor:pointer;
+  }
+  .coupon-code{font-family:'IBM Plex Mono'; font-weight:700; color:var(--stamp); background:rgba(228,72,58,0.1); padding:2px 6px; border-radius:3px;}
+
   .ticket-meta{font-size:11px; color:#787262; margin-bottom:10px; font-weight:500;}
   .ticket-actions{display:flex; gap:6px; margin-top:auto;}
   
@@ -259,6 +293,11 @@
 </style>
 </head>
 <body>
+
+<div class="install-banner" id="pwaInstallBanner" style="display:none;">
+  <span>📲 Install Deals Hub app on your home screen!</span>
+  <button class="install-banner-btn" id="pwaInstallBtn" type="button">Install App</button>
+</div>
 
 <header>
   <div class="header-inner">
@@ -317,12 +356,39 @@ let deals = [];
 let activeCategory = 'All';
 let specialFilter = 'All';
 let searchTerm = '';
+let deferredPwaPrompt = null;
 
 const grid = document.getElementById('dealsGrid');
 const chipRow = document.getElementById('chipRow');
 const toastEl = document.getElementById('toast');
 const themeToggleBtn = document.getElementById('themeToggleBtn');
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* --- PWA SERVICE WORKER & INSTALL PROMPT --- */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPwaPrompt = e;
+  const banner = document.getElementById('pwaInstallBanner');
+  if (banner) banner.style.display = 'flex';
+});
+
+document.getElementById('pwaInstallBtn')?.addEventListener('click', async () => {
+  if (deferredPwaPrompt) {
+    deferredPwaPrompt.prompt();
+    const { outcome } = await deferredPwaPrompt.userChoice;
+    if (outcome === 'accepted') {
+      showToast('🎉 Deals Hub App installed!');
+    }
+    deferredPwaPrompt = null;
+    document.getElementById('pwaInstallBanner').style.display = 'none';
+  }
+});
 
 /* --- THEME TOGGLE (DARK / LIGHT MODE) --- */
 const savedTheme = localStorage.getItem('dh_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
@@ -378,7 +444,26 @@ function getNumericPrice(d){
   return isNaN(now) ? Infinity : now;
 }
 
+/* 1-TAP COPY COUPON CODE & OPEN DEAL */
+async function copyCouponAndOpen(code, link, title) {
+  if (typeof gtag === 'function') {
+    gtag('event', 'use_coupon', { coupon_code: code, deal_title: title });
+  }
+  try {
+    await navigator.clipboard.writeText(code);
+    showToast(`📋 Coupon "${code}" copied! Opening deal...`);
+  } catch (e) {
+    showToast(`Coupon code: ${code}`);
+  }
+  setTimeout(() => {
+    window.open(link, '_blank', 'noopener,noreferrer');
+  }, 600);
+}
+
 async function shareOrCopy(title, url) {
+  if (typeof gtag === 'function') {
+    gtag('event', 'share_deal', { deal_title: title });
+  }
   if (navigator.share) {
     try {
       await navigator.share({ title: title, url: url });
@@ -390,6 +475,12 @@ async function shareOrCopy(title, url) {
     showToast('📋 Deal link copied to clipboard!');
   } catch (e) {
     showToast('Failed to copy link.');
+  }
+}
+
+function trackDealClick(title, link) {
+  if (typeof gtag === 'function') {
+    gtag('event', 'click_deal', { deal_title: title, deal_link: link });
   }
 }
 
@@ -445,8 +536,14 @@ function renderTopDeal(){
           ${pinned.was ? `<span class="was">${escapeHtml(pinned.was)}</span>` : ''}
           ${disc !== null ? `<span style="color:var(--stamp);font-weight:700;font-size:14px;">${disc}% OFF</span>` : ''}
         </div>
+        ${pinned.coupon ? `
+          <div class="coupon-box" onclick="copyCouponAndOpen('${escapeHtml(pinned.coupon)}', '${escapeHtml(pinned.link)}', '${escapeHtml(pinned.title)}')">
+            <span>🎟️ Coupon Available: <span class="coupon-code">${escapeHtml(pinned.coupon)}</span></span>
+            <span style="font-weight:700;">Copy & Apply ↗</span>
+          </div>
+        ` : ''}
         <div class="top-deal-actions">
-          <a class="btn btn-primary top-deal-cta" href="${escapeHtml(pinned.link)}" target="_blank" rel="noopener noreferrer sponsored">Grab this deal →</a>
+          <a class="btn btn-primary top-deal-cta" href="${escapeHtml(pinned.link)}" onclick="trackDealClick('${escapeHtml(pinned.title)}', '${escapeHtml(pinned.link)}')" target="_blank" rel="noopener noreferrer sponsored">Grab this deal →</a>
           <button class="share-btn" onclick="shareOrCopy('${escapeHtml(pinned.title)}', '${escapeHtml(pinned.link)}')" type="button">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
             <span>Share</span>
@@ -513,9 +610,15 @@ function render(){
           <span class="price-now">${escapeHtml(d.now)}</span>
           ${d.was ? `<span class="price-was">${escapeHtml(d.was)}</span>` : ''}
         </div>
+        ${d.coupon ? `
+          <div class="coupon-box" onclick="copyCouponAndOpen('${escapeHtml(d.coupon)}', '${escapeHtml(d.link)}', '${escapeHtml(d.title)}')">
+            <span>🎟️ Code: <span class="coupon-code">${escapeHtml(d.coupon)}</span></span>
+            <span style="font-size:10.5px;">Copy & Grab ↗</span>
+          </div>
+        ` : ''}
         <div class="ticket-meta">Posted ${timeAgo(d.createdAt || Date.now())}</div>
         <div class="ticket-actions">
-          <a class="grab-btn" href="${escapeHtml(d.link)}" target="_blank" rel="noopener noreferrer sponsored">Grab deal →</a>
+          <a class="grab-btn" href="${escapeHtml(d.link)}" onclick="trackDealClick('${escapeHtml(d.title)}', '${escapeHtml(d.link)}')" target="_blank" rel="noopener noreferrer sponsored">Grab deal →</a>
           <button class="share-btn" onclick="shareOrCopy('${escapeHtml(d.title)}', '${escapeHtml(d.link)}')" title="Share or Copy Link" type="button">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
             <span>Share</span>
