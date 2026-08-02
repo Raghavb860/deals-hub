@@ -375,7 +375,8 @@ async function shareOrCopy(title, url) {
 async function loadDeals(){
   grid.innerHTML = '<div class="loading-row">Loading fresh deals…</div>';
   try{
-    const res = await fetch('deals.json', { cache: 'no-store' });
+    /* CRITICAL: Force cache-busting timestamp parameter to bypass browser & CDN caching */
+    const res = await fetch('deals.json?v=' + Date.now(), { cache: 'no-store' });
     const raw = await res.json();
     deals = (Array.isArray(raw) ? raw : []).filter(d => !isExpired(d));
   }catch(e){
@@ -438,7 +439,7 @@ function render(){
   buildChips();
   renderTopDeal();
 
-  // Dynamic Real-Time KPI Stats
+  // Dynamic Real-Time KPI Stats calculation
   const nowTs = Date.now();
   const maxTs = deals.length ? Math.max(...deals.map(d=>d.createdAt||nowTs)) : nowTs;
   
