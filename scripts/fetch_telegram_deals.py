@@ -13,8 +13,8 @@ DEALS_JSON_PATH = os.path.join(os.path.dirname(__file__), "..", "deals.json")
 FEED_XML_PATH = os.path.join(os.path.dirname(__file__), "..", "feed.xml")
 
 WA_PHONE_NUMBER_ID = os.getenv("WA_PHONE_NUMBER_ID", "1325947473926027")
-WA_ACCESS_TOKEN = os.getenv("WA_ACCESS_TOKEN", "EAAbAYVkv24oBSN7tuqobK3gylBXnEMUnqTZCF0iEYZAz1wUOBElFxO0WqCuv4BhWvBg5l1dGxeysm4aZBitIJ0padH0oNExxBdabcFZB974zPtUD2ZBh4CBczdYogM3OC94e0u7az92l68RZBqx6gn6PhrC1YvC0sSny3ChzBKyZAau1GblIo9zbeh53H4GSgHGdCmMddp6XR943ISOn4cMbVuNbc7NkMHZBJPJDsTZCm1H5iYC9TPv1hAQ8bcrVSxVbf2QazyHYHEw8BI90OaOUs")
-WA_RECIPIENT = os.getenv("WA_RECIPIENT", "")
+WA_ACCESS_TOKEN = os.getenv("WA_ACCESS_TOKEN", "EAAbAYVkv24oBSDSS4r1ZBvhlSBQ2GgkB4A28CwyYrz64cDCd3QzEnzwrZC61miZB5ZA3NdleRhMUBhOEGhsoh72dkgyCyQJZCJoeZCEZCyfhDcr5jJ1zDXs274kTFLiZB8UZACNf74m1cMpP9pDh5XysadkpngZBnIoZAU8VzKIvqE2a6aZBcAUrqW3qGto7KJGuIIKOz9BUEbIEzbDa3Ewl5nIZCLZCgQOB7WpMfUTxMpNjamBigY5Xz9Nh4t35Aej0OtzA0FgCEDAypfIThC1e4ikkrGpAZDZD")
+WA_RECIPIENT = os.getenv("WA_RECIPIENT", "918894860316")
 
 def categorize(title):
     t = title.lower()
