@@ -1,9 +1,9 @@
-name: Auto Update Amazon Deals from Telegram
+name: Auto Update Amazon Deals from Telegram & WhatsApp
 
 on:
   schedule:
-    # Runs every 4 hours automatically
-    - cron: '0 */4 * * *'
+    # Runs every 1 hour automatically
+    - cron: '0 */1 * * *'
   workflow_dispatch:
 
 jobs:
@@ -20,6 +20,9 @@ jobs:
           python-version: '3.x'
 
       - name: Run Deals Fetcher Script
+        env:
+          WA_PHONE_NUMBER_ID: "1325947473926027"
+          WA_ACCESS_TOKEN: "EAAbAYVkv24oBSN7tuqobK3gylBXnEMUnqTZCF0iEYZAz1wUOBElFxO0WqCuv4BhWvBg5l1dGxeysm4aZBitIJ0padH0oNExxBdabcFZB974zPtUD2ZBh4CBczdYogM3OC94e0u7az92l68RZBqx6gn6PhrC1YvC0sSny3ChzBKyZAau1GblIo9zbeh53H4GSgHGdCmMddp6XR943ISOn4cMbVuNbc7NkMHZBJPJDsTZCm1H5iYC9TPv1hAQ8bcrVSxVbf2QazyHYHEw8BI90OaOUs"
         run: |
           python scripts/fetch_telegram_deals.py
 
@@ -28,5 +31,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
           git add deals.json
-          git diff-index --quiet HEAD || git commit -m "Auto-update: Fresh Amazon affiliate deals from Telegram"
+          git diff-index --quiet HEAD || git commit -m "Auto-update: Fresh Amazon affiliate deals from Telegram & WhatsApp"
           git push
