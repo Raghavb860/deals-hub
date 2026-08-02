@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dealshub-v1';
+const CACHE_NAME = 'dealshub-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -30,4 +30,22 @@ self.addEventListener('fetch', (e) => {
       caches.match(e.request).then((res) => res || fetch(e.request))
     );
   }
+});
+
+/* PUSH NOTIFICATIONS HANDLER */
+self.addEventListener('push', (e) => {
+  const data = e.data ? e.data.json() : { title: '🔥 New Loot Deal Dropped!', body: 'Check out today\'s biggest price drop on Deals Hub.' };
+  e.waitUntil(
+    self.registration.showNotification(data.title, {
+      body: data.body,
+      icon: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=192&auto=format&fit=crop',
+      badge: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=192&auto=format&fit=crop',
+      data: { url: './' }
+    })
+  );
+});
+
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  e.waitUntil(clients.openWindow(e.notification.data.url || './'));
 });

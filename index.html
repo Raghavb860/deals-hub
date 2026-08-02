@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Deals Hub — Daily Hand-Picked Deals & Discounts</title>
-<meta name="description" content="Hand-picked deals, loot offers, and price drops updated daily. Direct affiliate links with verified discounts.">
+<title>Deals Hub — Today's Best Amazon Loot Deals & Price Drops India</title>
+<meta name="description" content="Hand-picked daily Amazon loot deals, lightning discounts, and verified coupons in India. Updated live every 4 hours with up to 90% OFF on Electronics, Fashion & Home.">
+<meta name="keywords" content="amazon loot deals today india, amazon lightning deals, price drops, amazon coupons, deals hub, discounts india">
+<link rel="canonical" href="https://raghavb860.github.io/deals-hub/">
 
 <!-- PWA Manifest & Theme Color -->
 <link rel="manifest" href="manifest.json">
@@ -15,14 +17,30 @@
 
 <!-- OPEN GRAPH / SOCIAL PREVIEW META TAGS -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Deals Hub — Daily Deals & Loot Offers">
+<meta property="og:title" content="Deals Hub — Today's Best Amazon Loot Deals India">
 <meta property="og:description" content="Hand-picked deals and discounts, posted daily. Save big on Electronics, Fashion & more!">
 <meta property="og:image" content="https://raghavb860.github.io/deals-hub/og-image.jpg">
 <meta property="og:url" content="https://raghavb860.github.io/deals-hub/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Deals Hub — Daily Deals & Loot Offers">
+<meta name="twitter:title" content="Deals Hub — Today's Best Amazon Loot Deals">
 <meta name="twitter:description" content="Hand-picked deals and discounts, posted daily.">
 <meta name="twitter:image" content="https://raghavb860.github.io/deals-hub/og-image.jpg">
+
+<!-- GOOGLE STRUCTURED DATA / JSON-LD FOR SEO RANKING -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Deals Hub",
+  "url": "https://raghavb860.github.io/deals-hub/",
+  "description": "Daily hand-picked Amazon loot deals, price drops & coupons in India.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://raghavb860.github.io/deals-hub/#deals?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 
 <!-- GOOGLE ANALYTICS (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
@@ -70,6 +88,7 @@
     --kpi-border: #282B36;
     --coupon-bg: #FFF5D6;
     --coupon-border: #E8CF7A;
+    --wa-green: #25D366;
     --radius: 8px;
   }
 
@@ -132,14 +151,16 @@
   .brand-name{font-family:'Bebas Neue'; font-size:24px; letter-spacing:0.06em; color:var(--text-primary);}
   .brand-name em{font-style:normal; color:var(--stamp);}
   
-  .header-actions { display: flex; align-items: center; gap: 8px; }
+  .header-actions { display: flex; align-items: center; gap: 8px; flex-wrap:wrap;}
   .btn{border:none; border-radius:100px; padding:8px 14px; font-weight:600; font-size:12.5px; display:inline-flex; align-items:center; gap:6px; transition:transform .15s ease, background-color .15s ease, color .15s ease, border-color .15s ease;}
   .btn:active{transform:scale(0.96);}
   .btn-primary{background:var(--stamp); color:#fff;}
   .btn-primary:hover{background:var(--stamp-hover); box-shadow:0 4px 14px rgba(228,72,58,0.35);}
   .btn-ghost{background:var(--btn-ghost-bg); color:var(--btn-ghost-text); border:1px solid var(--btn-ghost-border);}
+  .btn-wa{background:var(--wa-green); color:#FFFFFF; font-weight:700;}
+  .btn-wa:hover{background:#1EBE5D;}
 
-  /* --- PWA Install Banner --- */
+  /* --- PWA Install & Push Banner --- */
   .install-banner{background:linear-gradient(90deg, #E4483A, #F0A93B); color:#FFF; padding:10px 16px; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:space-between; gap:12px;}
   .install-banner-btn{background:#FFF; color:#17181D; border:none; border-radius:100px; padding:5px 14px; font-weight:700; font-size:12px;}
 
@@ -306,6 +327,8 @@
       <span class="brand-name">DEALS<em>HUB</em></span>
     </a>
     <div class="header-actions">
+      <button class="btn btn-ghost" id="pushNotifyBtn" type="button">🔔 Deal Alerts</button>
+      <a class="btn btn-wa" href="https://whatsapp.com/channel/YOUR_CHANNEL_ID" target="_blank" rel="noopener">💬 WhatsApp</a>
       <button class="btn btn-ghost" id="themeToggleBtn" type="button" title="Toggle Light/Dark Theme">🌙 Dark</button>
       <button class="btn btn-ghost" id="refreshBtn" type="button">🔄 Refresh</button>
     </div>
@@ -313,9 +336,9 @@
 </header>
 
 <section class="hero">
-  <span class="eyebrow">Hand-Picked · Updated Live</span>
-  <h1>Fresh deals,<br><span class="stamp-word">stamped</span> daily.</h1>
-  <p>Verified discounts & loot offers posted the moment prices drop. Click any deal to grab the offer directly!</p>
+  <span class="eyebrow">Hand-Picked · Updated Live Every 4 Hours</span>
+  <h1>Today's Best Amazon<br><span class="stamp-word">Loot Deals</span> India.</h1>
+  <p>Verified discounts & lightning deals posted automatically from top deal networks. Click any deal to grab the offer directly!</p>
   <div class="stats-row">
     <div class="stat"><span class="stat-num" id="statTotal">0</span><span class="stat-label">Deals live</span></div>
     <div class="stat"><span class="stat-num" id="statCats">0</span><span class="stat-label">Categories</span></div>
@@ -362,7 +385,26 @@ const grid = document.getElementById('dealsGrid');
 const chipRow = document.getElementById('chipRow');
 const toastEl = document.getElementById('toast');
 const themeToggleBtn = document.getElementById('themeToggleBtn');
+const pushNotifyBtn = document.getElementById('pushNotifyBtn');
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* --- WEB PUSH NOTIFICATIONS --- */
+pushNotifyBtn.addEventListener('click', async () => {
+  if (!('Notification' in window)) {
+    showToast('Notifications not supported on this browser.');
+    return;
+  }
+  const permission = await Notification.requestPermission();
+  if (permission === 'granted') {
+    showToast('🔔 Deal Alerts Enabled!');
+    new Notification('🔥 Deals Hub Alerts Active', {
+      body: 'You will receive instant notifications when top loot deals drop!',
+      icon: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=192&auto=format&fit=crop'
+    });
+  } else {
+    showToast('Permission denied for notifications.');
+  }
+});
 
 /* --- PWA SERVICE WORKER & INSTALL PROMPT --- */
 if ('serviceWorker' in navigator) {
