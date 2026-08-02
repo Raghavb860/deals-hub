@@ -1,0 +1,32 @@
+name: Auto Update Amazon Deals from Telegram
+
+on:
+  schedule:
+    # Runs every 4 hours automatically
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-deals:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run Deals Fetcher Script
+        run: |
+          python scripts/fetch_telegram_deals.py
+
+      - name: Commit & Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add deals.json
+          git diff-index --quiet HEAD || git commit -m "Auto-update: Fresh Amazon affiliate deals from Telegram"
+          git push
