@@ -57,12 +57,19 @@ def calculate_discount(was_str, now_str):
         pass
     return 0
 
+def clean_amazon_image(img_url):
+    if not img_url:
+        return ""
+    # Strip Amazon adsystem or sizing wrappers to get direct unblocked JPEG
+    cleaned = re.sub(r'\._[A-Z0-9_,]+_\.', '.', img_url)
+    return cleaned
+
 def generate_rss(deals):
     try:
         rss = ET.Element("rss", version="2.0")
         channel = ET.SubElement(rss, "channel")
         
-        ET.SubElement(channel, "title").text = "Deals Hub — Hand-Picked Deals & Discounts"
+        ET.SubElement(channel, "title").text = "Deals Hub — Hand-Picked Real Deals & Discounts"
         ET.SubElement(channel, "link").text = "https://raghavb860.github.io/deals-hub/"
         ET.SubElement(channel, "description").text = "Today's best Amazon loot deals & price drops India."
 
@@ -166,7 +173,7 @@ def fetch_channel_deals(channel):
             if asin:
                 cat, emoji = categorize(title)
                 aff_link = f"https://www.amazon.in/dp/{asin}?tag={AFFILIATE_TAG}"
-                img_url = f"https://ws-in.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN={asin}&Format=_SL500_&ID=AsinImage&MarketPlace=IN"
+                img_url = f"https://m.media-amazon.com/images/I/{asin}.jpg"
                 
                 deals.append({
                     "id": f"tg-{channel.lower()}-{asin}",
@@ -186,7 +193,7 @@ def fetch_channel_deals(channel):
     return deals
 
 def main():
-    print("Fetching deals with STRICT DISCOUNT & COUPON filters...")
+    print("Fetching deals with STRICT DISCOUNT & REAL PHOTO filters...")
     existing = []
     if os.path.exists(DEALS_JSON_PATH):
         try:
@@ -194,6 +201,8 @@ def main():
                 raw = json.load(f)
                 now_ts = int(time.time() * 1000)
                 for d in raw:
+                    # Clean image URL
+                    d["image"] = clean_amazon_image(d.get("image",""))
                     disc = calculate_discount(d.get("was",""), d.get("now",""))
                     if d.get("pinned") or d.get("coupon") or disc >= 25:
                         d["createdAt"] = now_ts
