@@ -10,7 +10,7 @@
     "coupon": "SAVE50",
     "link": "https://www.amazon.in/dp/B0DSLML4CF?tag=dealshub6706-21",
     "pinned": true,
-    "createdAt": 1785754147254,
+    "createdAt": 1785755221563,
     "expiresAt": ""
   },
   {
@@ -22,9 +22,65 @@
     "was": "₹4,490",
     "now": "₹1,099",
     "coupon": "BOAT100",
-    "link": "https://www.amazon.in/s?k=boAt+Airdopes+141+TWS+Earbuds+with+42H+Playtime+%26+ENx+Tech&tag=dealshub6706-21",
+    "link": "https://www.amazon.in/dp/B097RD4V24?tag=dealshub6706-21",
     "pinned": true,
-    "createdAt": 1785754146254,
+    "createdAt": 1785755220563,
+    "expiresAt": ""
+  },
+  {
+    "id": "razer-deathadder-gaming-mouse",
+    "title": "Razer DeathAdder Essential Gaming Mouse (6400 DPI Optical Sensor)",
+    "category": "Gaming & Accessories",
+    "emoji": "🎮",
+    "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80",
+    "was": "₹4,499",
+    "now": "₹1,299",
+    "coupon": "RAZER200",
+    "link": "https://www.amazon.in/s?k=Razer+DeathAdder+Essential+Gaming+Mouse&tag=dealshub6706-21",
+    "pinned": false,
+    "createdAt": 1785755220063,
+    "expiresAt": ""
+  },
+  {
+    "id": "cosmic-byte-gaming-headset",
+    "title": "Cosmic Byte GS430 Gaming Headset with Microphone (RGB LED)",
+    "category": "Gaming & Accessories",
+    "emoji": "🎧",
+    "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80",
+    "was": "₹1,499",
+    "now": "₹799",
+    "coupon": "GAME100",
+    "link": "https://www.amazon.in/s?k=Cosmic+Byte+GS430+Gaming+Headset&tag=dealshub6706-21",
+    "pinned": false,
+    "createdAt": 1785755219763,
+    "expiresAt": ""
+  },
+  {
+    "id": "philips-hair-straightener",
+    "title": "Philips Selfie Hair Straightener HP8302/00 (SilkPro Care Tech)",
+    "category": "Beauty & Personal Care",
+    "emoji": "💇‍♀️",
+    "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80",
+    "was": "₹1,445",
+    "now": "₹999",
+    "coupon": "BEAUTY100",
+    "link": "https://www.amazon.in/s?k=Philips+Selfie+Hair+Straightener+HP8302&tag=dealshub6706-21",
+    "pinned": false,
+    "createdAt": 1785755219663,
+    "expiresAt": ""
+  },
+  {
+    "id": "bombay-shaving-facial-kit",
+    "title": "Bombay Shaving Company Charcoal Facial Grooming Kit",
+    "category": "Beauty & Personal Care",
+    "emoji": "🧔",
+    "image": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop&q=80",
+    "was": "₹895",
+    "now": "₹499",
+    "coupon": "SHAVE50",
+    "link": "https://www.amazon.in/s?k=Bombay+Shaving+Company+Charcoal+Facial+Kit&tag=dealshub6706-21",
+    "pinned": false,
+    "createdAt": 1785755219563,
     "expiresAt": ""
   },
   {
@@ -38,7 +94,7 @@
     "coupon": "",
     "link": "https://www.amazon.in/dp/B08HV83HL3?tag=dealshub6706-21",
     "pinned": false,
-    "createdAt": 1785754145254,
+    "createdAt": 1785755218563,
     "expiresAt": ""
   },
   {
@@ -50,9 +106,9 @@
     "was": "₹1,800",
     "now": "₹869",
     "coupon": "",
-    "link": "https://www.amazon.in/s?k=SanDisk+Ultra+128GB+MicroSDXC+UHS-I+Memory+Card+140MB%2Fs&tag=dealshub6706-21",
+    "link": "https://www.amazon.in/s?k=SanDisk+Ultra+128GB+MicroSDXC&tag=dealshub6706-21",
     "pinned": false,
-    "createdAt": 1785754144254,
+    "createdAt": 1785755217563,
     "expiresAt": ""
   },
   {
@@ -64,9 +120,9 @@
     "was": "₹500",
     "now": "₹349",
     "coupon": "SILK50",
-    "link": "https://www.amazon.in/s?k=Cadbury+Dairy+Milk+Silk+Chocolate+Gift+Pack+%28350g%29&tag=dealshub6706-21",
+    "link": "https://www.amazon.in/s?k=Cadbury+Dairy+Milk+Silk+Chocolate+Gift+Pack&tag=dealshub6706-21",
     "pinned": false,
-    "createdAt": 1785754143254,
+    "createdAt": 1785755216563,
     "expiresAt": ""
   },
   {
@@ -78,23 +134,9 @@
     "was": "₹500",
     "now": "₹299",
     "coupon": "NIVEA50",
-    "link": "https://www.amazon.in/s?k=Nivea+Men+Active+Clean+Shower+Gel+250ml+Body+Wash&tag=dealshub6706-21",
+    "link": "https://www.amazon.in/s?k=Nivea+Men+Active+Clean+Shower+Gel&tag=dealshub6706-21",
     "pinned": false,
-    "createdAt": 1785754142254,
-    "expiresAt": ""
-  },
-  {
-    "id": "boat-wave-call-smartwatch",
-    "title": "boAt Wave Call Smartwatch with 1.69\" HD Display & Bluetooth Calling",
-    "category": "Electronics",
-    "emoji": "⌚",
-    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
-    "was": "₹7,990",
-    "now": "₹1,299",
-    "coupon": "WAVE200",
-    "link": "https://www.amazon.in/s?k=boAt+Wave+Call+Smartwatch+with+1.69%22+HD+Display+%26+Bluetooth+Calling&tag=dealshub6706-21",
-    "pinned": false,
-    "createdAt": 1785754141254,
+    "createdAt": 1785755215563,
     "expiresAt": ""
   },
   {
@@ -106,37 +148,9 @@
     "was": "₹1,295",
     "now": "₹549",
     "coupon": "KETTLE50",
-    "link": "https://www.amazon.in/s?k=Pigeon+by+Stovekraft+Amaze+Plus+1.5+Litre+Electric+Kettle+%281500W%29&tag=dealshub6706-21",
+    "link": "https://www.amazon.in/s?k=Pigeon+by+Stovekraft+Amaze+Plus+Electric+Kettle&tag=dealshub6706-21",
     "pinned": false,
-    "createdAt": 1785754140254,
-    "expiresAt": ""
-  },
-  {
-    "id": "wipro-16a-smart-plug",
-    "title": "Wipro 16A Wi-Fi Smart Plug with Energy Monitoring",
-    "category": "Home & Kitchen",
-    "emoji": "🔌",
-    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
-    "was": "₹2,290",
-    "now": "₹999",
-    "coupon": "SMART100",
-    "link": "https://www.amazon.in/s?k=Wipro+16A+Wi-Fi+Smart+Plug+with+Energy+Monitoring&tag=dealshub6706-21",
-    "pinned": false,
-    "createdAt": 1785754139254,
-    "expiresAt": ""
-  },
-  {
-    "id": "jbl-go-2-speaker",
-    "title": "JBL Go 2 Wireless Portable Bluetooth Speaker IPX7 Waterproof",
-    "category": "Electronics",
-    "emoji": "🔊",
-    "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80",
-    "was": "₹2,999",
-    "now": "₹1,999",
-    "coupon": "JBL200",
-    "link": "https://www.amazon.in/s?k=JBL+Go+2+Wireless+Portable+Bluetooth+Speaker+IPX7+Waterproof&tag=dealshub6706-21",
-    "pinned": false,
-    "createdAt": 1785754138254,
+    "createdAt": 1785755214563,
     "expiresAt": ""
   },
   {
@@ -148,23 +162,9 @@
     "was": "₹2,500",
     "now": "₹1,149",
     "coupon": "SOLIMO100",
-    "link": "https://www.amazon.in/s?k=Solimo+Non-Stick+Cookware+3-Piece+Set+%28Fry+Pan%2C+Kadhai%2C+Tawa%29&tag=dealshub6706-21",
+    "link": "https://www.amazon.in/s?k=Solimo+Non-Stick+Cookware+3-Piece+Set&tag=dealshub6706-21",
     "pinned": false,
-    "createdAt": 1785754137254,
-    "expiresAt": ""
-  },
-  {
-    "id": "prestige-iris-mixer-grinder",
-    "title": "Prestige Iris 750W Mixer Grinder (3 SS Jars + Juicer Jar)",
-    "category": "Home & Kitchen",
-    "emoji": "🍹",
-    "image": "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=600&auto=format&fit=crop&q=80",
-    "was": "₹6,195",
-    "now": "₹3,299",
-    "coupon": "PRESTIGE200",
-    "link": "https://www.amazon.in/s?k=Prestige+Iris+750W+Mixer+Grinder+%283+SS+Jars+%2B+Juicer+Jar%29&tag=dealshub6706-21",
-    "pinned": false,
-    "createdAt": 1785754136254,
+    "createdAt": 1785755213563,
     "expiresAt": ""
   },
   {
@@ -176,9 +176,9 @@
     "was": "₹2,800",
     "now": "₹999",
     "coupon": "AT100",
-    "link": "https://www.amazon.in/s?k=American+Tourister+32L+Casual+Laptop+Backpack+%28Water+Resistant%29&tag=dealshub6706-21",
+    "link": "https://www.amazon.in/s?k=American+Tourister+32L+Casual+Laptop+Backpack&tag=dealshub6706-21",
     "pinned": false,
-    "createdAt": 1785754135254,
+    "createdAt": 1785755212563,
     "expiresAt": ""
   },
   {
@@ -192,21 +192,7 @@
     "coupon": "PUMA300",
     "link": "https://www.amazon.in/s?k=Puma+Men%27s+Smash+v2+Leather+Casual+Sneakers&tag=dealshub6706-21",
     "pinned": false,
-    "createdAt": 1785754134254,
-    "expiresAt": ""
-  },
-  {
-    "id": "happilo-trail-mix-500g",
-    "title": "Happilo Premium International Trail Mix 500g (Nuts & Berries)",
-    "category": "Grocery & Essentials",
-    "emoji": "🥜",
-    "image": "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=600&auto=format&fit=crop&q=80",
-    "was": "₹775",
-    "now": "₹399",
-    "coupon": "HAPPILO50",
-    "link": "https://www.amazon.in/s?k=Happilo+Premium+International+Trail+Mix+500g+%28Nuts+%26+Berries%29&tag=dealshub6706-21",
-    "pinned": false,
-    "createdAt": 1785754133254,
+    "createdAt": 1785755211563,
     "expiresAt": ""
   }
 ]
