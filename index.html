@@ -329,6 +329,7 @@
     <div class="header-actions">
       <button class="btn btn-ghost" id="pushNotifyBtn" type="button">🔔 Deal Alerts</button>
       <a class="btn btn-wa" href="https://whatsapp.com/channel/0029VbD0R5B9cDDSsbyBOO2P" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a class="btn btn-ghost" href="https://t.me/EOnDeals" target="_blank" rel="noopener" style="border-color:#2AABEE;color:#2AABEE;">✈️ Telegram</a>
       <button class="btn btn-ghost" id="themeToggleBtn" type="button" title="Toggle Light/Dark Theme">🌙 Dark</button>
       <button class="btn btn-ghost" id="refreshBtn" type="button">🔄 Refresh</button>
     </div>
@@ -336,7 +337,7 @@
 </header>
 
 <section class="hero">
-  <span class="eyebrow">Hand-Picked · Updated Live Every 4 Hours</span>
+  <span class="eyebrow">Hand-Picked · Updated Live Every 1 Hour</span>
   <h1>Today's Best Amazon<br><span class="stamp-word">Loot Deals</span> India.</h1>
   <p>Verified discounts & lightning deals posted automatically from top deal networks. Click any deal to grab the offer directly!</p>
   <div class="stats-row">
@@ -544,12 +545,16 @@ async function loadDeals(){
 
 function buildChips(){
   const baseCats = ['All', ...new Set(deals.map(d => d.category))];
-  let html = baseCats.map(c =>
-    `<button class="chip ${c===activeCategory && specialFilter==='All'?'active':''}" data-cat="${escapeHtml(c)}" data-filter="All" type="button">${escapeHtml(c)}</button>`
-  ).join('');
+  let html = baseCats.map(c => {
+    const count = c === 'All' ? deals.length : deals.filter(d => d.category === c).length;
+    return `<button class="chip ${c===activeCategory && specialFilter==='All'?'active':''}" data-cat="${escapeHtml(c)}" data-filter="All" type="button">${escapeHtml(c)} <span style="font-weight:700;opacity:0.8;">(${count})</span></button>`;
+  }).join('');
 
-  html += `<button class="chip chip-tag ${specialFilter==='under500'?'active':''}" data-cat="All" data-filter="under500" type="button">🔥 Under ₹500</button>`;
-  html += `<button class="chip chip-tag ${specialFilter==='50off'?'active':''}" data-cat="All" data-filter="50off" type="button">⚡ 50%+ OFF</button>`;
+  const under500Count = deals.filter(d => getNumericPrice(d) <= 500).length;
+  const off50Count = deals.filter(d => { const disc = discountPct(d); return disc !== null && disc >= 50; }).length;
+
+  html += `<button class="chip chip-tag ${specialFilter==='under500'?'active':''}" data-cat="All" data-filter="under500" type="button">🔥 Under ₹500 (${under500Count})</button>`;
+  html += `<button class="chip chip-tag ${specialFilter==='50off'?'active':''}" data-cat="All" data-filter="50off" type="button">⚡ 50%+ OFF (${off50Count})</button>`;
 
   chipRow.innerHTML = html;
   chipRow.querySelectorAll('.chip').forEach(btn=>{
@@ -559,6 +564,16 @@ function buildChips(){
       render(); 
     });
   });
+}
+
+function handleGrabDealClick(coupon, link, title) {
+  trackDealClick(title, link);
+  if (coupon) {
+    try {
+      navigator.clipboard.writeText(coupon);
+      showToast(`📋 Coupon "${coupon}" copied! Opening deal...`);
+    } catch (e) {}
+  }
 }
 
 function renderTopDeal(){
@@ -588,7 +603,7 @@ function renderTopDeal(){
           </div>
         ` : ''}
         <div class="top-deal-actions">
-          <a class="btn btn-primary top-deal-cta" href="${escapeHtml(pinned.link)}" onclick="trackDealClick('${escapeHtml(pinned.title)}', '${escapeHtml(pinned.link)}')" target="_blank" rel="noopener noreferrer sponsored">Grab this deal →</a>
+          <a class="btn btn-primary top-deal-cta" href="${escapeHtml(pinned.link)}" onclick="handleGrabDealClick('${escapeHtml(pinned.coupon||'')}', '${escapeHtml(pinned.link)}', '${escapeHtml(pinned.title)}')" target="_blank" rel="noopener noreferrer sponsored">Grab this deal →</a>
           <button class="share-btn" onclick="shareOrCopy('${escapeHtml(pinned.title)}', '${escapeHtml(pinned.link)}')" type="button">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
             <span>Share</span>
@@ -663,7 +678,7 @@ function render(){
         ` : ''}
         <div class="ticket-meta">Posted ${timeAgo(d.createdAt || Date.now())}</div>
         <div class="ticket-actions">
-          <a class="grab-btn" href="${escapeHtml(d.link)}" onclick="trackDealClick('${escapeHtml(d.title)}', '${escapeHtml(d.link)}')" target="_blank" rel="noopener noreferrer sponsored">Grab deal →</a>
+          <a class="grab-btn" href="${escapeHtml(d.link)}" onclick="handleGrabDealClick('${escapeHtml(d.coupon||'')}', '${escapeHtml(d.link)}', '${escapeHtml(d.title)}')" target="_blank" rel="noopener noreferrer sponsored">Grab deal →</a>
           <button class="share-btn" onclick="shareOrCopy('${escapeHtml(d.title)}', '${escapeHtml(d.link)}')" title="Share or Copy Link" type="button">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
             <span>Share</span>
