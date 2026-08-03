@@ -46,10 +46,11 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  // Replace G-MEASUREMENT_ID with your actual Google Analytics Measurement ID when ready
-  gtag('config', 'G-MEASUREMENT_ID', { 'anonymize_ip': true });
+  function gtag(){try{dataLayer.push(arguments);}catch(e){}}
+  try{
+    gtag('js', new Date());
+    gtag('config', 'G-MEASUREMENT_ID', { 'anonymize_ip': true });
+  }catch(e){}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -373,7 +374,7 @@
     <div class="wrap footer-content">
       <p>Deals Hub contains affiliate links — we may earn a small commission if you purchase through our links at no extra cost to you.</p>
       <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">📌 Note: Amazon product prices and lightning deals change dynamically. Prices shown are updated regularly from deal networks. Click any deal to view the current live price on Amazon India.</p>
-      <p>© 2026 Deals Hub. Product prices and availability are accurate as of the timestamp indicated and are subject to change.</p>
+      <p>© <span id="year">2026</span> Deals Hub. Product prices and availability are accurate as of the timestamp indicated and are subject to change.</p>
     </div>
   </footer>
 
@@ -574,7 +575,9 @@ const chipRow = document.getElementById('chipRow');
 const toastEl = document.getElementById('toast');
 const themeToggleBtn = document.getElementById('themeToggleBtn');
 const pushNotifyBtn = document.getElementById('pushNotifyBtn');
-document.getElementById('year').textContent = new Date().getFullYear();
+if (document.getElementById('year')) {
+  document.getElementById('year').textContent = new Date().getFullYear();
+}
 
 /* --- WEB PUSH NOTIFICATIONS --- */
 pushNotifyBtn.addEventListener('click', async () => {
