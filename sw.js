@@ -1,8 +1,7 @@
-const CACHE_NAME = 'dealshub-v2';
+const CACHE_NAME = 'dealshub-v3-nocache';
 const ASSETS = [
   './',
   './index.html',
-  './deals.json',
   './manifest.json'
 ];
 
@@ -16,7 +15,7 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys().then((keys) => {
     return Promise.all(keys.map((k) => {
-      if (k !== CACHE_NAME) return caches.delete(k);
+      return caches.delete(k);
     }));
   }));
   self.clients.claim();
@@ -24,7 +23,7 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   if (e.request.url.includes('deals.json')) {
-    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+    e.respondWith(fetch(e.request, { cache: 'no-store' }).catch(() => caches.match(e.request)));
   } else {
     e.respondWith(
       caches.match(e.request).then((res) => res || fetch(e.request))
