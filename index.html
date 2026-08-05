@@ -567,6 +567,8 @@ const INITIAL_DEALS = [
 let deals = INITIAL_DEALS.slice();
 let activeCategory = 'All';
 let specialFilter = 'All';
+let activeGender = 'All';
+let activeType = 'All';
 let searchTerm = '';
 let deferredPwaPrompt = null;
 
@@ -743,6 +745,20 @@ async function loadDeals(){
 
 function buildChips(){
   const baseCats = ['All', ...new Set(deals.map(d => d.category))];
+  
+  // Populate Gender Dropdown
+  const genderSelect = document.getElementById('genderFilter');
+  if (genderSelect) {
+    const genders = ['All', ...new Set(deals.map(d => d.gender).filter(Boolean))];
+    genderSelect.innerHTML = genders.map(g => `<option value="${g}" ${activeGender===g?'selected':''}>${g==='All'?'All Genders':g}</option>`).join('');
+  }
+  
+  // Populate Type Dropdown
+  const typeSelect = document.getElementById('typeFilter');
+  if (typeSelect) {
+    const types = ['All', ...new Set(deals.map(d => d.productType).filter(Boolean))];
+    typeSelect.innerHTML = types.map(t => `<option value="${t}" ${activeType===t?'selected':''}>${t==='All'?'All Product Types':t}</option>`).join('');
+  }
   let html = baseCats.map(c => {
     const count = c === 'All' ? deals.length : deals.filter(d => d.category === c).length;
     return `<button class="chip ${c===activeCategory && specialFilter==='All'?'active':''}" data-cat="${escapeHtml(c)}" data-filter="All" type="button">${escapeHtml(c)} <span style="font-weight:700;opacity:0.8;">(${count})</span></button>`;
@@ -826,6 +842,8 @@ function render(){
   let filtered = deals.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   
   if (activeCategory !== 'All') filtered = filtered.filter(d => d.category === activeCategory);
+  if (activeGender !== 'All') filtered = filtered.filter(d => d.gender === activeGender);
+  if (activeType !== 'All') filtered = filtered.filter(d => d.productType === activeType);
   
   if (specialFilter === 'under500') {
     filtered = filtered.filter(d => getNumericPrice(d) <= 500);
