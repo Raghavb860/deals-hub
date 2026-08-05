@@ -18,7 +18,7 @@
   {
     "id": "minimalist-salicylic-acid",
     "title": "Minimalist 2% Salicylic Acid Face Wash for Oil Regulation & Exfoliation",
-    "category": "Electronics",
+    "category": "Beauty",
     "gender": "Unisex",
     "productType": "Face Wash",
     "emoji": "🧴",
@@ -34,7 +34,7 @@
   {
     "id": "nike-down-deodorant",
     "title": "Nike Up or Down Deodorant for Men and Women, 200ml",
-    "category": "Electronics",
+    "category": "Beauty",
     "gender": "Unisex",
     "productType": "Deodorant",
     "emoji": "💨",
@@ -50,7 +50,7 @@
   {
     "id": "utkrisht-shampoo",
     "title": "Utkrisht Shikakai Shampoo - Natural Ayurvedic Hair Cleanser",
-    "category": "Grocery",
+    "category": "Beauty",
     "gender": "Unisex",
     "productType": "Shampoo",
     "emoji": "🌿",
@@ -82,7 +82,7 @@
   {
     "id": "wishcare-shampoo",
     "title": "WishCare Multi-Peptide Hairfall Control Shampoo",
-    "category": "Grocery",
+    "category": "Beauty",
     "gender": "Unisex",
     "productType": "Shampoo",
     "emoji": "🧴",
@@ -98,7 +98,7 @@
   {
     "id": "garnier-men-facewash",
     "title": "Garnier Men, Face Wash, Brightening & Anti-Pollution, TurboBright Double Action",
-    "category": "Electronics",
+    "category": "Beauty",
     "gender": "Mens",
     "productType": "Face Wash",
     "emoji": "👨",
