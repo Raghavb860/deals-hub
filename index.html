@@ -892,7 +892,7 @@ function render(){
             <span style="font-size:10.5px;">Copy & Grab ↗</span>
           </div>
         ` : ''}
-        <div class="ticket-meta">Posted ${timeAgo(d.createdAt || Date.now())}</div>
+        
         <div class="ticket-actions">
           <a class="grab-btn" href="${escapeHtml(d.link)}" onclick="handleGrabDealClick('${escapeHtml(d.coupon||'')}', '${escapeHtml(d.link)}', '${escapeHtml(d.title)}')" target="_blank" rel="noopener noreferrer sponsored">Grab deal →</a>
           <button class="share-btn" onclick="shareOrCopy('${escapeHtml(d.title)}', '${escapeHtml(d.link)}')" title="Share or Copy Link" type="button">
@@ -900,7 +900,7 @@ function render(){
             <span>Share</span>
           </button>
         </div>
-        <div class="affiliate-note">Affiliate link</div>
+        
       </div>
     </article>`;
   }).join('');
